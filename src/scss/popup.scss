@@ -1,5 +1,11 @@
-$bg-color: pink;
+.container {
+  @font-face {
+    font-family: Roboto;
+    src: url(../fonts/Roboto-Light.ttf);
+  }
 
-body {
-  background: $bg-color;
+  display: flex;
+  font-family: Roboto;
+
+  width: 300px;
 }

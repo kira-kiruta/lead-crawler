@@ -9,7 +9,7 @@
     "start": "webpack --watch"
   },
   "dependencies": {
-    "normalize.css": "^8.0.0"
+    "normalize-scss": "^7.0.1"
   },
   "devDependencies": {
     "css-loader": "^0.28.9",

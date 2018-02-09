@@ -15,6 +15,17 @@ module.exports = {
           fallback: 'style-loader',
           use: ['css-loader', 'sass-loader']
         })
+      },
+      {
+        test: /\.[ot]tf$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 65000,
+            mimetype: 'application/octet-stream',
+            name: 'dist/fonts/[name].[ext]'
+          }
+        }
       }
     ]
   },

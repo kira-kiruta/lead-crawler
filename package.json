@@ -1,0 +1,10 @@
+{
+  "name": "lead-crawler",
+  "version": "1.0.0",
+  "description": "",
+  "author": "kira-kiruta",
+  "license": "ISC",
+  "dependencies": {
+    "normalize.css": "^8.0.0"
+  }
+}

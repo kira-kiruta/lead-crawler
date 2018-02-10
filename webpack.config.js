@@ -2,10 +2,13 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: './src/popup/popup.js',
+  entry: {
+    popup: './src/popup/popup.js',
+    background: './src/background/background.js'
+  },
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'popup.js'
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'dist')
   },
   devtool: "source-map",
   module: {

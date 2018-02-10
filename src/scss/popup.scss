@@ -1,5 +1,7 @@
 @import "~normalize-scss";
 
+$linkedin-color: #0084BF;
+
 .container {
   @font-face {
     font-family: Roboto;
@@ -7,5 +9,7 @@
   }
 
   display: flex;
+  flex-flow: column nowrap;
+
   width: 300px;
 }

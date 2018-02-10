@@ -15,30 +15,25 @@
   </div>
   <div class="settingsWrapper">
     <h2>Invitation settings</h2>
-    <!--Set day invites limit, default=100 -->
     <label>
-      Invites limit:<input id="invitesMax">
+      Invites limit:<input>
     </label>
-    <!--Input for time, default=5s -->
     <label>
-      Time interval:<input id="invitesTime">s
+      Time interval:<input>s
     </label>
-    <!--Set location (dropdown)-->
-    <label>
-      Location:<input id="invitesLocation">
-    </label>
-    <!--Choose the circle of connections-->
     <div>
       <p>Connections:</p>
-      <label><input type="checkbox">1st</label>
-      <label><input type="checkbox">2nd</label>
+      <label><input type="checkbox" checked>1st</label>
+      <label><input type="checkbox" checked>2nd</label>
       <label><input type="checkbox">3rd+</label>
     </div>
-    <!--Choose catchphrase to look for in the title-->
     <label>
-      Title search:<input>
-      <span>for instance: HR, Developer, Analyst</span>
+      Location:<input class="largeInput">
     </label>
+    <label>
+      Title search:<input class="largeInput">
+    </label>
+    <span>for instance: HR, Developer, Analyst</span>
   </div>
   <div>
     <button>Start</button>

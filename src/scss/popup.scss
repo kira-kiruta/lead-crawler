@@ -14,7 +14,43 @@ $dark-gray: #424242;
 $light-gray: #EDEDED;
 $border-gray: #A6A6A6;
 $dark-red: #DD0D25;
-$dark-green: #B6C850;
+$dark-green: #6F8109;
+$light-green: #B6C850;
+
+@mixin input-style($width: 30px) {
+  width: $width;
+  height: 24px;
+  margin: 5px 3px 5px 15px;
+  padding: 0 5px;
+  text-align: center;
+  font : {
+    family: "Segoe UI";
+    size: 14px;
+  }
+  color: $dark-gray;
+  background-color: $light-gray;
+  border: 1px solid $border-gray;
+  border-radius: 5px;
+  outline: none;
+}
+
+@mixin button-style {
+  height: 50px;
+  width: 160px;
+  margin: 15px 0;
+  font : {
+    family: "Segoe UI";
+    size: 20px;
+  }
+  color: #FFFFFF;
+  background-color: $light-green;
+  border: 1px solid $dark-green;
+  border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+    background-color: $dark-green;
+  }
+}
 
 .container {
   font : {
@@ -49,22 +85,16 @@ $dark-green: #B6C850;
   }
 
   input {
-    width: 40px;
-    height: 24px;
-    margin: 3px 3px 3px 15px;
-    padding: 0 5px;
-    text-align: center;
-    font : {
-      family: "Segoe UI";
-      size: 14px;
-    }
-    color: $dark-gray;
-    background-color: $light-gray;
-    border: 1px solid $border-gray;
-    border-radius: 5px;
-    outline: none;
+    @include input-style();
   }
 
+  .largeInput {
+    @include input-style(160px);
+  }
+
+  button {
+    @include button-style;
+  }
 }
 
 .wrapper {
@@ -82,14 +112,19 @@ $dark-green: #B6C850;
 
   span {
     font : {
-      size: 12px;
+      size: 11px;
       style: italic;
     }
+  }
+
+  div {
+    display: flex;
+    margin: 5px 30px;
   }
 }
 
 #connectionsCount {
-  font-size: 32px;
+  font-size: 34px;
   color: $linkedin-color;
 }
 

@@ -14,30 +14,32 @@
     <h3>Today you've sent <span id="invitesCount">15</span> new invites.<br>Way to go!</h3>
   </div>
   <hr>
-  <div class="settingsWrapper">
-    <h2>Invitation settings</h2>
+  <form id="js-search-form">
+    <div class="settingsWrapper">
+      <h2>Invitation settings</h2>
+      <div>
+        <label>
+          Invites limit:<input type="number" value="1000" min="1" max="99999" step="10" id="invitesMax">
+        </label>
+        <label>
+          Time interval:<input type="number" value="5" min="1" max="9999" step="5" id="invitesTime">s
+        </label>
+      </div>
+      <div class="connectionCircles">
+        <p>Connections:</p>
+        <label><input type="checkbox" checked>2nd</label>
+        <label><input type="checkbox">3rd+</label>
+      </div>
+      <input class="largeInput" placeholder="Location">
+      <input class="largeInput" placeholder="Search in title">
+      <span>for instance: HR, Developer, Analyst</span>
+    </div>
     <div>
-      <label>
-        Invites limit:<input type="number" value="1000" min="1" max="99999" step="10" id="invitesMax">
-      </label>
-      <label>
-        Time interval:<input type="number" value="5" min="1" max="9999" step="5" id="invitesTime">s
-      </label>
+      <button>START</button>
     </div>
-    <div class="connectionCircles">
-      <p>Connections:</p>
-      <label><input type="checkbox" checked>2nd</label>
-      <label><input type="checkbox">3rd+</label>
-    </div>
-    <input class="largeInput" placeholder="Location">
-    <input class="largeInput" placeholder="Search in title">
-    <span>for instance: HR, Developer, Analyst</span>
-  </div>
-  <div>
-    <button>START</button>
-  </div>
+  </form>
   <!--For using this extension, you have to be logged in to LinkedIn-->
 </div>
-<script src="../dist/popup.js"></script>
+<script src="../../dist/popup.js"></script>
 </body>
 </html>

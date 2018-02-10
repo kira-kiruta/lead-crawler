@@ -4,6 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: {
     popup: './src/popup/popup.js',
+    content: './src/content/content.js',
     background: './src/background/background.js'
   },
   output: {

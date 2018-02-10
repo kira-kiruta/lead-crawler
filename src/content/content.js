@@ -1,8 +1,16 @@
-import { MESSAGE_CHECK_IF_CURRENT_TAB } from './../common/const';
-const { sendMessage } = chrome.runtime;
+import { isCurrentTab, waitForIt, getPersons, sendInvitation, openNextPage } from './utils';
 
-sendMessage({ message: MESSAGE_CHECK_IF_CURRENT_TAB }, (response) => {
-  const { isCurrentTab } = response;
-
-  console.log('CURRENT TAB: ', isCurrentTab);
+isCurrentTab().then(waitForIt).then(() => {
+  let iterator = 0;
+  const persons = getPersons();
+  const interval = window.setInterval(() => {
+    const person = persons[iterator];
+    if (person) {
+      sendInvitation(person);
+      iterator = iterator + 1;
+    } else {
+      window.clearInterval(interval);
+      openNextPage();
+    }
+  }, 5000)
 });

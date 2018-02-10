@@ -36,7 +36,6 @@ export const getPersons = () => Array.from(document.querySelectorAll('.search-re
 
 export const sendInvitation = (person) => {
   return new Promise((resolve, reject) => {
-    console.log('PERSON: ', person);
     const trigger = person.querySelector('.search-result__actions--primary');
     if (trigger) {
       trigger.click();

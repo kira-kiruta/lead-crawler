@@ -1,4 +1,6 @@
-import { SEARCH_URL } from './config';
+import {
+  SEARCH_URL,
+} from './../../common/const';
 
 const { local } = chrome.storage;
 const searchForm = document.getElementById('js-search-form');

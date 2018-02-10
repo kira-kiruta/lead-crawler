@@ -21,7 +21,12 @@ module.exports = {
                 sourceMap: true
               }
             },
-            'resolve-url-loader',
+            {
+              loader: 'resolve-url-loader',
+              options: {
+                sourceMap: true
+              }
+            },
             {
               loader: 'sass-loader',
               options: {

@@ -1,23 +1,18 @@
-@import "~normalize-scss";
+@import "~normalize-scss/sass/normalize/_import-now.scss";
+@font-face {
+  font-family: Montserrat;
+  src: url(./../fonts/Montserrat-Regular.ttf);
+}
 
 $linkedin-color: #0084BF;
 
 .container {
-  @font-face {
-    font-family: Montserrat;
-    src: url(./../fonts/Montserrat-Regular.ttf) format('truetype');
-  }
-
   font : {
     family: Montserrat, sans-serif;
     size: 14px;
-
   }
 
   display: flex;
   flex-flow: column nowrap;
-
-
-
   width: 300px;
 }

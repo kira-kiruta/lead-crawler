@@ -1,11 +1,11 @@
+@import "~normalize-scss";
+
 .container {
   @font-face {
     font-family: Roboto;
-    src: url(../fonts/Roboto-Light.ttf);
+    src: url(./../fonts/Roboto-Light.ttf) format('truetype');
   }
 
   display: flex;
-  font-family: Roboto;
-
   width: 300px;
 }

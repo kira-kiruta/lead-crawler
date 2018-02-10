@@ -7,23 +7,37 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
+  devtool: "source-map",
   module: {
     rules: [
       {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true
+              }
+            },
+            'resolve-url-loader',
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true
+              }
+            }
+          ]
         })
       },
       {
-        test: /\.[ot]tf$/,
+        test: /\.ttf$/,
         use: {
           loader: 'url-loader',
           options: {
-            limit: 65000,
-            mimetype: 'application/octet-stream',
-            name: 'dist/fonts/[name].[ext]'
+            limit: 100000,
+            name: './fonts/[name].[ext]'
           }
         }
       }

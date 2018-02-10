@@ -1,23 +1,30 @@
 @import "~normalize-scss";
+@font-face {
+  font-family: Montserrat;
+  src: url(./../fonts/Montserrat-Regular.ttf);
+}
+@font-face {
+  font-family: Roboto;
+  src: url(./../fonts/Roboto-Regular.ttf);
+}
 
 $linkedin-color: #0084BF;
 
 .container {
-  @font-face {
-    font-family: Montserrat;
-    src: url(./../fonts/Montserrat-Regular.ttf) format('truetype');
-  }
-
   font : {
-    family: Montserrat, sans-serif;
-    size: 14px;
-
+    family: "Segoe UI", Roboto, sans-serif;
+    size: 16px;
   }
 
   display: flex;
   flex-flow: column nowrap;
 
-
-
   width: 300px;
+  text-align: center;
+
+  #connectionsCount {
+    font-size: 32px;
+    color: $linkedin-color;
+  }
+
 }

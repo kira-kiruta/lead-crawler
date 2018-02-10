@@ -170,21 +170,21 @@ button {
   background-color: $light-blue;
 }
 
-#connectionsCount {
+.connectionsCount {
   font-size: 34px;
   color: $linkedin-color;
 }
 
-#invitesCount {
+.invitesCount {
   color: $linkedin-color;
   font-weight: bold;
 }
 
-#invitesMax {
+.invitesMax {
   @include input-style($width: 46px);
 }
 
-#invitesTime {
+.invitesTime {
   @include input-style($width: 35px);
 }
 

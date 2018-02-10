@@ -1,4 +1,5 @@
 @import "~normalize-scss/sass/normalize/_import-now.scss";
+
 @font-face {
   font-family: Montserrat;
   src: url(./../fonts/Montserrat-Regular.ttf);
@@ -9,11 +10,17 @@
 }
 
 $linkedin-color: #0084BF;
+$dark-gray: #424242;
+$light-gray: #EDEDED;
+$border-gray: #A6A6A6;
+$dark-red: #DD0D25;
+$dark-green: #B6C850;
 
 .container {
   font : {
     family: "Segoe UI", Roboto, sans-serif;
     size: 16px;
+    weight: normal;
   }
 
   display: flex;
@@ -21,10 +28,72 @@ $linkedin-color: #0084BF;
 
   width: 300px;
   text-align: center;
+  color: $dark-gray;
 
-  #connectionsCount {
-    font-size: 32px;
-    color: $linkedin-color;
+  h2 {
+    font : {
+      size: 22px;
+      //weight: normal;
+    }
+
+    margin: 14px auto;
   }
 
+  h3 {
+    font : {
+      size: 16px;
+      weight: normal;
+    }
+
+    margin: 10px 0 0 0;
+  }
+
+  input {
+    width: 40px;
+    height: 24px;
+    margin: 3px 3px 3px 15px;
+    padding: 0 5px;
+    text-align: center;
+    font : {
+      family: "Segoe UI";
+      size: 14px;
+    }
+    color: $dark-gray;
+    background-color: $light-gray;
+    border: 1px solid $border-gray;
+    border-radius: 5px;
+    outline: none;
+  }
+
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+
+  span {
+    padding: 7px 0;
+  }
+}
+
+.settingsWrapper {
+  display: flex;
+  flex-direction: column;
+
+  span {
+    font : {
+      size: 12px;
+      style: italic;
+    }
+  }
+}
+
+#connectionsCount {
+  font-size: 32px;
+  color: $linkedin-color;
+}
+
+#invitesCount {
+  color: $linkedin-color;
+  font-weight: bold;
 }

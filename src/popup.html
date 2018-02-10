@@ -7,38 +7,38 @@
 <div class="container">
   <div>
     <h2>Your LinkedIn network</h2>
-    <img src="img/contacts.svg">
-    <span id="connectionsCount">1488</span>
-    <h3>Today you've sent <span>15</span> new invites. Way to go!</h3>
+    <div class="wrapper">
+      <img src="img/contacts.svg">
+      <span id="connectionsCount">1488</span>
+    </div>
+    <h3>Today you've sent <span id="invitesCount">15</span> new invites.<br>Way to go!</h3>
   </div>
-  <div>
-    <h1>Invitation settings</h1>
+  <div class="settingsWrapper">
+    <h2>Invitation settings</h2>
     <!--Set day invites limit, default=100 -->
-    <div>
-      <label>Invites limit:</label>
-      <input id="invitesMax">
-    </div>
+    <label>
+      Invites limit:<input id="invitesMax">
+    </label>
     <!--Input for time, default=5s -->
-    <div>
-      <label>Time interval:</label>
-      <input id="invitesTime">
-    </div>
+    <label>
+      Time interval:<input id="invitesTime">s
+    </label>
     <!--Set location (dropdown)-->
-    <div>
-      <label>Location</label>
-      <input id="invitesLocation">
-    </div>
+    <label>
+      Location:<input id="invitesLocation">
+    </label>
     <!--Choose the circle of connections-->
     <div>
+      <p>Connections:</p>
       <label><input type="checkbox">1st</label>
       <label><input type="checkbox">2nd</label>
       <label><input type="checkbox">3rd+</label>
     </div>
-    <!--Choose catchfrase to look for in the title-->
-    <div>
-      <label>Catchphrase</label>
-      <input>
-    </div>
+    <!--Choose catchphrase to look for in the title-->
+    <label>
+      Title search:<input>
+      <span>for instance: HR, Developer, Analyst</span>
+    </label>
   </div>
   <div>
     <button>Start</button>

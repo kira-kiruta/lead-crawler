@@ -1,11 +1,13 @@
+$linkedin-color: #0084BF;
+
 .container {
-  @font-face {
-    font-family: Roboto;
-    src: url(../fonts/Roboto-Light.ttf);
-  }
+  //@font-face {
+  //  font-family: Roboto;
+  //  src: url(../fonts/Roboto-Light.ttf);
+  //}
 
   display: flex;
-  font-family: Roboto;
+  flex-flow: column nowrap;
 
   width: 300px;
 }

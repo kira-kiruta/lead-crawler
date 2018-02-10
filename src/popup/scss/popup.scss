@@ -1,29 +1,19 @@
 @import "~normalize-scss/sass/normalize/_import-now.scss";
 
-@font-face {
-  font-family: Montserrat;
-  src: url(./../fonts/Montserrat-Regular.ttf);
-}
-
-@font-face {
-  font-family: Roboto;
-  src: url(./../fonts/Roboto-Regular.ttf);
-}
-
 $linkedin-color: #0084BF;
 $dark-blue: #005E93;
-$medium-blue: #0A9FDB;
-$light-blue: #9DDAF3;
+$light-blue: #0A9FDB;
 $dark-gray: #737373;
 $light-gray: #A4A4A4;
 $border-gray: #BFBFBF;
 $white: #FFFFFF;
 
-@mixin input-style($width: 32px, $height: 25px, $text-align: center, $font-size: 12px) {
+@mixin input-style($width: 32px, $height: 25px, $text-align: center, $font-size: 12px, $margin-side: 5px) {
   width: $width;
   height: $height;
   text-align: $text-align;
-  margin: 5px 3px;
+  box-sizing: border-box;
+  margin: 5px $margin-side;
   padding: 0 5px;
   font: {
     family: "Segoe UI";
@@ -45,7 +35,7 @@ $white: #FFFFFF;
 
 @mixin button-style {
   height: 40px;
-  width: 160px;
+  width: 100%;
   margin: 15px 0;
   font: {
     family: "Segoe UI";
@@ -71,16 +61,15 @@ $white: #FFFFFF;
   display: flex;
   flex-flow: column nowrap;
 
+  box-sizing: border-box;
   width: 300px;
+  padding: 0 15px;
   text-align: center;
   color: $dark-gray;
 }
 
 h2 {
-  font: {
-    size: 22px;
-    //weight: normal;
-  }
+  font-size: 22px;
   margin: 12px 0;
 }
 
@@ -104,7 +93,7 @@ p {
 }
 
 .largeInput {
-  @include input-style($width: 250px, $height: 30px, $text-align: left, $font-size: 14px);
+  @include input-style($width: 100%, $height: 30px, $text-align: left, $font-size: 14px, $margin-side: 0);
 }
 
 button {
@@ -124,8 +113,6 @@ button {
   display: flex;
   flex-direction: column;
 
-  padding: 0 15px;
-
   span {
     font: {
       size: 12px;
@@ -138,6 +125,49 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  margin: 10px 0;
+}
+
+.secondCircleCheckbox {
+  display: none;
+}
+
+.secondCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  color: $dark-blue;
+  background-color: $white;
+  border: 1px solid $dark-blue;
+  border-radius: 50%;
+}
+
+.secondCircleCheckbox:checked + .secondCircle {
+  color: white;
+  background-color: $dark-blue;
+}
+
+.thirdCircleCheckbox {
+  display: none;
+}
+
+.thirdCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  color: $light-blue;
+  background-color: $white;
+  border: 1px solid $light-blue;
+  border-radius: 50%;
+}
+
+.thirdCircleCheckbox:checked + .thirdCircle {
+  color: white;
+  background-color: $light-blue;
 }
 
 #connectionsCount {
@@ -151,11 +181,11 @@ button {
 }
 
 #invitesMax {
-  @include input-style($width: 35px);
+  @include input-style($width: 46px);
 }
 
 #invitesTime {
-  @include input-style($width: 24px);
+  @include input-style($width: 35px);
 }
 
 //Style to hide arrows in input type number:

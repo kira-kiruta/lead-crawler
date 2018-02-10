@@ -4,12 +4,20 @@ $linkedin-color: #0084BF;
 
 .container {
   @font-face {
-    font-family: Roboto;
-    src: url(./../fonts/Roboto-Light.ttf) format('truetype');
+    font-family: Montserrat;
+    src: url(./../fonts/Montserrat-Regular.ttf) format('truetype');
+  }
+
+  font : {
+    family: Montserrat, sans-serif;
+    size: 14px;
+
   }
 
   display: flex;
   flex-flow: column nowrap;
+
+
 
   width: 300px;
 }

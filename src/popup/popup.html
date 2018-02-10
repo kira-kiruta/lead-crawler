@@ -13,31 +13,29 @@
     </div>
     <h3>Today you've sent <span id="invitesCount">15</span> new invites.<br>Way to go!</h3>
   </div>
+  <hr>
   <form id="js-search-form">
     <div class="settingsWrapper">
       <h2>Invitation settings</h2>
-      <label>
-        Invites limit:<input>
-      </label>
-      <label>
-        Time interval:<input>s
-      </label>
       <div>
+        <label>
+          Invites limit:<input type="number" value="1000" min="1" max="99999" step="10" id="invitesMax">
+        </label>
+        <label>
+          Time interval:<input type="number" value="5" min="1" max="9999" step="5" id="invitesTime">s
+        </label>
+      </div>
+      <div class="connectionCircles">
         <p>Connections:</p>
-        <label><input type="checkbox" checked>1st</label>
         <label><input type="checkbox" checked>2nd</label>
         <label><input type="checkbox">3rd+</label>
       </div>
-      <label>
-        Location:<input class="largeInput">
-      </label>
-      <label>
-        Title search:<input class="largeInput">
-      </label>
+      <input class="largeInput" placeholder="Location">
+      <input class="largeInput" placeholder="Search in title">
       <span>for instance: HR, Developer, Analyst</span>
     </div>
     <div>
-      <button>Start</button>
+      <button>START</button>
     </div>
   </form>
   <!--For using this extension, you have to be logged in to LinkedIn-->

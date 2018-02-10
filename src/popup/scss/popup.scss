@@ -4,58 +4,67 @@
   font-family: Montserrat;
   src: url(./../fonts/Montserrat-Regular.ttf);
 }
+
 @font-face {
   font-family: Roboto;
   src: url(./../fonts/Roboto-Regular.ttf);
 }
 
 $linkedin-color: #0084BF;
-$dark-gray: #424242;
-$light-gray: #EDEDED;
-$border-gray: #A6A6A6;
-$dark-red: #DD0D25;
-$dark-green: #6F8109;
-$light-green: #B6C850;
+$dark-blue: #005E93;
+$medium-blue: #0A9FDB;
+$light-blue: #9DDAF3;
+$dark-gray: #737373;
+$light-gray: #A4A4A4;
+$border-gray: #BFBFBF;
+$white: #FFFFFF;
 
-@mixin input-style($width: 30px) {
+@mixin input-style($width: 32px, $height: 25px, $text-align: center, $font-size: 12px) {
   width: $width;
-  height: 24px;
-  margin: 5px 3px 5px 15px;
+  height: $height;
+  text-align: $text-align;
+  margin: 5px 3px;
   padding: 0 5px;
-  text-align: center;
-  font : {
+  font: {
     family: "Segoe UI";
-    size: 14px;
+    size: $font-size;
   }
   color: $dark-gray;
-  background-color: $light-gray;
+  background-color: $white;
   border: 1px solid $border-gray;
-  border-radius: 5px;
+  border-radius: 2px;
   outline: none;
+  &:hover {
+    border-color: $dark-gray;
+  }
+  &:focus {
+    border-color: $linkedin-color;
+    box-shadow: 0 0 0 1px $linkedin-color;
+  }
 }
 
 @mixin button-style {
-  height: 50px;
+  height: 40px;
   width: 160px;
   margin: 15px 0;
-  font : {
+  font: {
     family: "Segoe UI";
-    size: 20px;
+    size: 18px;
   }
-  color: #FFFFFF;
-  background-color: $light-green;
-  border: 1px solid $dark-green;
-  border-radius: 5px;
+  color: $white;
+  background-color: $linkedin-color;
+  border: none;
+  border-radius: 2px;
   &:hover {
     cursor: pointer;
-    background-color: $dark-green;
+    background-color: $dark-blue;
   }
 }
 
 .container {
-  font : {
+  font: {
     family: "Segoe UI", Roboto, sans-serif;
-    size: 16px;
+    size: 14px;
     weight: normal;
   }
 
@@ -65,36 +74,41 @@ $light-green: #B6C850;
   width: 300px;
   text-align: center;
   color: $dark-gray;
+}
 
-  h2 {
-    font : {
-      size: 22px;
-      //weight: normal;
-    }
-
-    margin: 14px auto;
+h2 {
+  font: {
+    size: 22px;
+    //weight: normal;
   }
+  margin: 12px 0;
+}
 
-  h3 {
-    font : {
-      size: 16px;
-      weight: normal;
-    }
-
-    margin: 10px 0 0 0;
+h3 {
+  font: {
+    size: 16px;
+    weight: normal;
   }
+  margin: 12px 0;
+}
 
-  input {
-    @include input-style();
-  }
+hr {
+  width: 220px;
+  height: 2px;
+  background-color: $dark-gray;
+  border: none;
+}
 
-  .largeInput {
-    @include input-style(160px);
-  }
+p {
+  font-size: 16px;
+}
 
-  button {
-    @include button-style;
-  }
+.largeInput {
+  @include input-style($width: 250px, $height: 30px, $text-align: left, $font-size: 14px);
+}
+
+button {
+  @include button-style;
 }
 
 .wrapper {
@@ -110,17 +124,20 @@ $light-green: #B6C850;
   display: flex;
   flex-direction: column;
 
+  padding: 0 15px;
+
   span {
-    font : {
-      size: 11px;
+    font: {
+      size: 12px;
       style: italic;
     }
   }
+}
 
-  div {
-    display: flex;
-    margin: 5px 30px;
-  }
+.connectionCircles {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 #connectionsCount {
@@ -131,4 +148,20 @@ $light-green: #B6C850;
 #invitesCount {
   color: $linkedin-color;
   font-weight: bold;
+}
+
+#invitesMax {
+  @include input-style($width: 35px);
+}
+
+#invitesTime {
+  @include input-style($width: 24px);
+}
+
+//Style to hide arrows in input type number:
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

@@ -6,6 +6,12 @@ import {
 
 const { local } = chrome.storage;
 
+export const setCurrentTabId = (id) =>
+  new Promise(resolve => local.set({ currentTabId: id }, resolve));
+
+export const getCurrentTabId = () =>
+  new Promise(resolve => local.get('currentTabId', ({ currentTabId }) => resolve(currentTabId)));
+
 export const getSettings = () =>
   new Promise(resolve =>
     local.get('settings', ({ settings }) =>
@@ -28,11 +34,14 @@ export const getInvites = () =>
   }));
 
 export const saveInvite = () =>
-  getInvites().then((invites) => {
-    const updatedInvites = filterInvites(invites);
-    const newInvite = { timestamp: Date.now() };
-    updatedInvites.push(newInvite);
-    local.set({ invites: updatedInvites });
-  });
+  new Promise(resolve =>
+    getInvites().then((invites) => {
+      const updatedInvites = filterInvites(invites);
+      const newInvite = { timestamp: Date.now() };
+      updatedInvites.push(newInvite);
+      local.set({ invites: updatedInvites }, () => resolve());
+    })
+  );
+
 
 const filterInvites = (invites) => invites.filter(({ timestamp }) => (Date.now() - timestamp) < DAY_MS);

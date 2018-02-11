@@ -236,7 +236,7 @@ button {
   justify-content: space-between;
 }
 
-.startButton {
+.startButton, .stopButton {
   @include button-style($height: 40px, $width: 100%, $bg-color: $light-blue, $font-size: 18px, $hover-color: $dark-blue);
   margin-top: 0;
 }
@@ -247,4 +247,8 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.hidden {
+  display: none !important;
 }

@@ -18,42 +18,41 @@
     <h3>We've found <span class="invitesCount">15</span> contacts for you.<br>Let's add them all!</h3>
   </div>
   <hr>
-  <form id="js-search-form">
-    <div class="settingsWrapper">
-      <h2>Invitation settings</h2>
-      <div>
-        <label>
-          Invites limit:<input type="number" value="1000" min="1" max="99999" id="js-invites-limit" class="invitesMax">
-        </label>
-        <label>
-          Time interval:<input type="number" value="5" min="1" max="999" id="js-invites-interval" class="invitesTime">s
-        </label>
-      </div>
-      <div class="connectionCircles">
-        <p>Connections:</p>
-        <label>
-          <input type="checkbox" class="secondCircleCheckbox" checked>
-          <div class="secondCircle">2</div>
-        </label>
-        <label>
-          <input type="checkbox" class="thirdCircleCheckbox" checked>
-          <div class="thirdCircle">3+</div>
-        </label>
-      </div>
-      <input class="largeInput" placeholder="Location">
-      <input class="largeInput" placeholder="Search in title">
-      <span>for instance: HR, Developer, Analyst</span>
+  <div class="settingsWrapper">
+    <h2>Invitation settings</h2>
+    <div>
+      <label>
+        Invites limit:<input type="number" value="1000" min="1" max="99999" id="js-invites-limit" class="invitesMax">
+      </label>
+      <label>
+        Time interval:<input type="number" value="5" min="1" max="999" id="js-invites-interval" class="invitesTime">s
+      </label>
     </div>
-    <div class="buttonWrapper">
-      <button>Save settings</button>
-      <button>Reset settings</button>
+    <div class="connectionCircles">
+      <p>Connections:</p>
+      <label>
+        <input type="checkbox" class="secondCircleCheckbox" checked>
+        <div class="secondCircle">2</div>
+      </label>
+      <label>
+        <input type="checkbox" class="thirdCircleCheckbox" checked>
+        <div class="thirdCircle">3+</div>
+      </label>
     </div>
-    <button class="startButton">START</button>
-    <div class="warningMessage">
-      <img src="img/warning.svg">
-      <span>Make sure you're logged in to LinkedIn.</span>
-    </div>
-  </form>
+    <input class="largeInput" placeholder="Location">
+    <input class="largeInput" placeholder="Search in title">
+    <span>for instance: HR, Developer, Analyst</span>
+  </div>
+  <div class="buttonWrapper">
+    <button id="js-save-settings">Save settings</button>
+    <button id="js-reset-settings">Reset settings</button>
+  </div>
+  <button class="startButton" id="js-start-button">START</button>
+  <button class="stopButton" id="js-stop-button">STOP</button>
+  <div class="warningMessage hidden" id="js-warning">
+    <img src="img/warning.svg">
+    <span>Make sure you're logged in to LinkedIn.</span>
+  </div>
   <!--For using this extension, you have to be logged in to LinkedIn-->
 </div>
 <script src="../../dist/popup.js"></script>

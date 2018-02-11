@@ -1,7 +1,12 @@
 import {
+  ERROR_NOT_LOGGED_IN,
+  MESSAGE_NOT_LOGGED_IN,
+  MESSAGE_LOGGED_IN,
   MESSAGE_GET_SETTINGS,
+  MESSAGE_SAVE_NEW_INVITE,
   MESSAGE_CHECK_IF_CURRENT_TAB,
 } from './../common/const';
+import {MESSAGE_NOT_LOGGED_IN, MESSAGE_SAVE_NEW_INVITE} from "../common/const";
 
 const { sendMessage } = chrome.runtime;
 
@@ -15,6 +20,18 @@ export const isCurrentTab = () =>
       }
     })
   );
+
+export const checkLogin = () =>
+  new Promise((resolve) => {
+    const isLoginPage = location.href.search('/login/') > -1;
+    if (isLoginPage) {
+      sendMessage({ message: MESSAGE_NOT_LOGGED_IN });
+      throw new Error(ERROR_NOT_LOGGED_IN);
+    } else {
+      sendMessage({ message: MESSAGE_LOGGED_IN });
+      resolve();
+    }
+  });
 
 export const getSettings = () =>
   new Promise(resolve =>
@@ -57,8 +74,8 @@ export const sendInvitation = person =>
     }
   });
 
-export const saveNewInvite = () =>
-  sendMessage({ message: MESSAGE_CHECK_IF_CURRENT_TAB });
+export const saveNewInvite = (port) =>
+  port.postMessage({ message: MESSAGE_SAVE_NEW_INVITE });
 
 export const openNextPage = () => {
   const nextPageTrigger = document.querySelector('.next-text');

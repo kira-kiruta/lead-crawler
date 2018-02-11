@@ -1,5 +1,11 @@
 import {
+  PORT_NAME_POPUP,
+  PORT_NAME_BACKGROUND,
+  ERROR_NOT_LOGGED_IN,
+} from './../common/const';
+import {
   isCurrentTab,
+  checkLogin,
   getSettings,
   waitForIt,
   getPersons,
@@ -8,18 +14,53 @@ import {
   saveNewInvite,
 } from './utils';
 
-isCurrentTab().then(waitForIt).then(getSettings).then(({ timeInterval, invitesLimit }) => {
+let port = null;
+let isError = false;
+const { connect, onConnect } = chrome.runtime;
+
+const createPort = () => {
+  port = connect({ name: PORT_NAME_BACKGROUND });
+  port.onMessage.addListener((msg) => {});
+};
+
+const startInviting = ({ timeInterval, invitesLimit }) => {
   let iterator = 0;
   const persons = getPersons();
   const interval = window.setInterval(() => {
-  // Save invite info
     const person = persons[iterator];
     if (person) {
-      sendInvitation(person).then(saveNewInvite);
+      sendInvitation(person).then(() => saveNewInvite(port));
       iterator = iterator + 1;
     } else {
       window.clearInterval(interval);
       openNextPage();
     }
-  }, timeInterval)
+  }, timeInterval * 1000);
+};
+
+const handleError = ({ message }) => {
+  console.log('Error: ', message);
+  switch(message) {
+    case ERROR_NOT_LOGGED_IN: {
+      isError = true;
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+};
+
+isCurrentTab()
+  .then(createPort)
+  .then(checkLogin)
+  .then(waitForIt)
+  .then(getSettings)
+  .then(startInviting)
+  .catch(handleError);
+
+onConnect.addListener((port) => {
+  if (port.name !== PORT_NAME_POPUP || isError) {
+    port.disconnect();
+  }
 });

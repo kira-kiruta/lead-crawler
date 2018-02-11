@@ -12,9 +12,11 @@ import {
   sendInvitation,
   openNextPage,
   saveNewInvite,
+  updateInviteCounter,
 } from './utils';
 
 let port = null;
+let popupPort = null;
 let isError = false;
 const { connect, onConnect } = chrome.runtime;
 
@@ -29,7 +31,12 @@ const startInviting = ({ timeInterval, invitesLimit }) => {
   const interval = window.setInterval(() => {
     const person = persons[iterator];
     if (person) {
-      sendInvitation(person).then(() => saveNewInvite(port));
+      sendInvitation(person).then(() => {
+        saveNewInvite(port);
+        if (popupPort) {
+          updateInviteCounter(popupPort);
+        }
+      });
       iterator = iterator + 1;
     } else {
       window.clearInterval(interval);
@@ -60,6 +67,8 @@ isCurrentTab()
   .catch(handleError);
 
 onConnect.addListener((port) => {
+  popupPort = port;
+
   if (port.name !== PORT_NAME_POPUP || isError) {
     port.disconnect();
   }

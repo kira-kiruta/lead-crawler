@@ -5,6 +5,7 @@ import {
   MESSAGE_GET_SETTINGS,
   MESSAGE_SAVE_NEW_INVITE,
   MESSAGE_CHECK_IF_CURRENT_TAB,
+  MESSAGE_UPDATE_INVITE_COUNTER,
 } from './../common/const';
 import {MESSAGE_NOT_LOGGED_IN, MESSAGE_SAVE_NEW_INVITE} from "../common/const";
 
@@ -76,6 +77,9 @@ export const sendInvitation = person =>
 
 export const saveNewInvite = (port) =>
   port.postMessage({ message: MESSAGE_SAVE_NEW_INVITE });
+
+export const updateInviteCounter = (port) =>
+  port.postMessage({ message: MESSAGE_UPDATE_INVITE_COUNTER });
 
 export const openNextPage = () => {
   const nextPageTrigger = document.querySelector('.next-text');

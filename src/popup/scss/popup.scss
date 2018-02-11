@@ -236,7 +236,8 @@ button {
   justify-content: space-between;
 }
 
-.startButton, .stopButton {
+.stopButton,
+.startButton {
   @include button-style($height: 40px, $width: 100%, $bg-color: $light-blue, $font-size: 18px, $hover-color: $dark-blue);
   margin-top: 0;
 }

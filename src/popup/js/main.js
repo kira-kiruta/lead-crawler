@@ -3,6 +3,7 @@ import {
   PORT_NAME_POPUP,
   MESSAGE_LOGGED_IN,
   MESSAGE_NOT_LOGGED_IN,
+  MESSAGE_UPDATE_INVITE_COUNTER,
 } from './../../common/const';
 import { getInvites, setCurrentTabId, getCurrentTabId } from './../../common/utils';
 import { fillSettings } from './settings';
@@ -15,8 +16,21 @@ const stopButton = document.getElementById('js-stop-button');
 const startButton = document.getElementById('js-start-button');
 const totalInvitesNumber = document.getElementById('js-invites-number');
 
-const setPortConnection = () => {
-  const port = connect(id, { name: PORT_NAME_POPUP });
+const setPortConnection = (tabId) => {
+  const port = connect(tabId, { name: PORT_NAME_POPUP });
+
+  port.onMessage.addListener((request) => {
+    switch (request.message) {
+      case MESSAGE_UPDATE_INVITE_COUNTER: {
+        updateInviteCounter();
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  });
+
   port.onDisconnect.addListener(stopInviting);
 };
 
@@ -35,19 +49,27 @@ const startInviting = () =>
   chrome.tabs.create({ url: SEARCH_URL, active: false }, ({ id }) => {
     changeState('start');
     setCurrentTabId(id);
-    window.setTimeout(setPortConnection, 3000);
+    window.setTimeout(() => setPortConnection(id), 3000);
   });
 
 const stopInviting = () =>
   getCurrentTabId().then((currentTabId) => remove(currentTabId, () => changeState('stop')));
 
+const updateInviteCounter = () => getInvites().then(invites => totalInvitesNumber.innerHTML = invites.length);
 
 
 fillSettings();
-getInvites().then(invites => totalInvitesNumber.innerHTML = invites.length);
+updateInviteCounter();
 getCurrentTabId().then((currentTabId) => {
   if (currentTabId) {
-    get(currentTabId, (tab) => changeState(tab ? 'start' : 'stop'))
+    get(currentTabId, (tab) => {
+      if (tab) {
+        changeState('start');
+        setPortConnection(tab.id);
+      } else {
+        changeState('stop');
+      }
+    })
   }
 });
 

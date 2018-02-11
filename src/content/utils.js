@@ -18,7 +18,7 @@ export const isCurrentTab = () =>
 
 export const getSettings = () =>
   new Promise(resolve =>
-    sendMessage({ message: MESSAGE_GET_SETTINGS }, ({ settings }) => resolve(settings))
+    sendMessage({ message: MESSAGE_GET_SETTINGS }, (settings) => resolve(settings))
   );
 
 export const waitForIt = () =>

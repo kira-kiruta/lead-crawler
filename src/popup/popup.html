@@ -13,7 +13,7 @@
     <h3>Invites sent in 24 hours:</h3>
     <div class="wrapper">
       <img src="img/invites.png">
-      <span class="connectionsCount">1488</span>
+      <span class="connectionsCount" id="js-invites-number">1488</span>
     </div>
     <h3>We've found <span class="invitesCount">15</span> contacts for you.<br>Let's add them all!</h3>
   </div>
@@ -23,10 +23,10 @@
       <h2>Invitation settings</h2>
       <div>
         <label>
-          Invites limit:<input type="number" value="1000" min="1" max="99999" step="10" id="js-invites-limit" class="invitesMax">
+          Invites limit:<input type="number" value="1000" min="1" max="99999" id="js-invites-limit" class="invitesMax">
         </label>
         <label>
-          Time interval:<input type="number" value="5" min="1" max="999" step="5" id="js-invites-interval" class="invitesTime">s
+          Time interval:<input type="number" value="5" min="1" max="999" id="js-invites-interval" class="invitesTime">s
         </label>
       </div>
       <div class="connectionCircles">

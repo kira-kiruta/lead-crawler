@@ -5,6 +5,7 @@ import {
   getPersons,
   sendInvitation,
   openNextPage,
+  saveNewInvite,
 } from './utils';
 
 isCurrentTab().then(waitForIt).then(getSettings).then(({ timeInterval, invitesLimit }) => {
@@ -14,7 +15,7 @@ isCurrentTab().then(waitForIt).then(getSettings).then(({ timeInterval, invitesLi
   // Save invite info
     const person = persons[iterator];
     if (person) {
-      sendInvitation(person);
+      sendInvitation(person).then(saveNewInvite);
       iterator = iterator + 1;
     } else {
       window.clearInterval(interval);

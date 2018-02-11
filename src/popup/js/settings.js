@@ -1,19 +1,10 @@
-import {
-  DEFAULT_INVITES_LIMIT,
-  DEFAULT_TIME_INTERVAL,
-} from './../../common/const';
+import { getSettings } from './../../common/utils';
 
-const { local } = chrome.storage;
+const intervalField = document.getElementById('js-invites-interval');
+const invitesLimitField = document.getElementById('js-invites-limit');
 
-export const getSettings = () => new Promise(resolve =>
-  local.get('settings', response =>
-    resolve(response.settings || {
-      invitesLimit: DEFAULT_INVITES_LIMIT,
-      timeInterval: DEFAULT_TIME_INTERVAL,
-    })
-  )
-);
-
-// export const fillSettings = () => {
-//   const
-// };
+export const fillFields = () =>
+  getSettings().then(({ timeInterval, invitesLimit }) => {
+    intervalField.value = timeInterval;
+    invitesLimitField.value = invitesLimit;
+  });

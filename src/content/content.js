@@ -1,6 +1,13 @@
-import { isCurrentTab, waitForIt, getPersons, sendInvitation, openNextPage } from './utils';
+import {
+  isCurrentTab,
+  getSettings,
+  waitForIt,
+  getPersons,
+  sendInvitation,
+  openNextPage,
+} from './utils';
 
-isCurrentTab().then(waitForIt).then(() => {
+isCurrentTab().then(waitForIt).then(getSettings).then(({ timeInterval, invitesLimit }) => {
   let iterator = 0;
   const persons = getPersons();
   const interval = window.setInterval(() => {
@@ -12,5 +19,5 @@ isCurrentTab().then(waitForIt).then(() => {
       window.clearInterval(interval);
       openNextPage();
     }
-  }, 5000)
+  }, timeInterval)
 });

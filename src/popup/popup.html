@@ -6,12 +6,16 @@
 <body>
 <div class="container">
   <div>
-    <h2>Your LinkedIn network</h2>
+    <div class="header">
+      <img src="img/linkedin-logo.png">
+      <h1>Lead Crawler</h1>
+    </div>
+    <h3>Invites sent in 24 hours:</h3>
     <div class="wrapper">
-      <img src="img/contacts.svg">
+      <img src="img/invites.png">
       <span class="connectionsCount">1488</span>
     </div>
-    <h3>Today you've sent <span class="invitesCount">15</span> new invites.<br>Way to go!</h3>
+    <h3>We've found <span class="invitesCount">15</span> contacts for you.<br>Let's add them all!</h3>
   </div>
   <hr>
   <form id="js-search-form">
@@ -32,7 +36,7 @@
           <div class="secondCircle">2</div>
         </label>
         <label>
-          <input type="checkbox" class="thirdCircleCheckbox">
+          <input type="checkbox" class="thirdCircleCheckbox" checked>
           <div class="thirdCircle">3+</div>
         </label>
       </div>
@@ -40,12 +44,14 @@
       <input class="largeInput" placeholder="Search in title">
       <span>for instance: HR, Developer, Analyst</span>
     </div>
-    <button>START</button>
-    <div class="successMessage">
-      <img>
+    <div class="buttonWrapper">
+      <button>Save settings</button>
+      <button>Reset settings</button>
     </div>
+    <button class="startButton">START</button>
     <div class="warningMessage">
-      <img>
+      <img src="img/warning.svg">
+      <span>Make sure you're logged in to LinkedIn.</span>
     </div>
   </form>
   <!--For using this extension, you have to be logged in to LinkedIn-->

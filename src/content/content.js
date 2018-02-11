@@ -41,6 +41,7 @@ const startInviting = ({ timeInterval, invitesLimit }) => {
     } else {
       window.clearInterval(interval);
       openNextPage();
+      window.setTimeout(() => location.reload(), 500);
     }
   }, timeInterval * 1000);
 };

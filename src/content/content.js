@@ -28,6 +28,7 @@ const createPort = () => {
 const startInviting = ({ timeInterval, invitesLimit }) => {
   let iterator = 0;
   const persons = getPersons();
+  console.log('PERSONS: ', persons);
   const interval = window.setInterval(() => {
     const person = persons[iterator];
     if (person) {
@@ -69,8 +70,11 @@ isCurrentTab()
 
 onConnect.addListener((port) => {
   popupPort = port;
+  port.onDisconnect.addListener(() => popupPort = null);
 
   if (port.name !== PORT_NAME_POPUP || isError) {
     port.disconnect();
   }
 });
+
+

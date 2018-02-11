@@ -44,10 +44,12 @@ export const waitForIt = () =>
     const interval = window.setInterval(() => {
       const searchContainer = document.querySelector('.results-list');
       if (searchContainer) {
-        window.scrollBy({
-          top: 999999,
-          behavior: 'smooth'
-        });
+        window.scrollTo(0, document.body.scrollHeight);
+        window.setTimeout(() => window.scrollTo(0, 0), 500);
+        // window.scrollBy({
+        //   top: 999999,
+        //   behavior: 'smooth'
+        // });
         window.setTimeout(() => resolve(), 2000);
         window.clearInterval(interval);
       }

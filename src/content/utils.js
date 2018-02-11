@@ -57,6 +57,9 @@ export const sendInvitation = person =>
     }
   });
 
+export const saveNewInvite = () =>
+  sendMessage({ message: MESSAGE_CHECK_IF_CURRENT_TAB });
+
 export const openNextPage = () => {
   const nextPageTrigger = document.querySelector('.next-text');
   if (nextPageTrigger) {

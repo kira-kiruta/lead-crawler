@@ -1,4 +1,5 @@
 import {
+  DAY_MS,
   DEFAULT_INVITES_LIMIT,
   DEFAULT_TIME_INTERVAL,
 } from './const';
@@ -14,3 +15,24 @@ export const getSettings = () =>
       })
     )
   );
+
+export const getInvites = () =>
+  new Promise(resolve => local.get('invites', ({ invites }) => {
+    if (!invites) {
+      resolve([]);
+      return;
+    }
+
+    const lastInvites = filterInvites(invites);
+    resolve(lastInvites);
+  }));
+
+export const saveInvite = () =>
+  getInvites().then((invites) => {
+    const updatedInvites = filterInvites(invites);
+    const newInvite = { timestamp: Date.now() };
+    updatedInvites.push(newInvite);
+    local.set({ invites: updatedInvites });
+  });
+
+const filterInvites = (invites) => invites.filter(({ timestamp }) => (Date.now() - timestamp) < DAY_MS);

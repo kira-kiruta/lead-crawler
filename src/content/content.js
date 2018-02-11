@@ -11,6 +11,7 @@ isCurrentTab().then(waitForIt).then(getSettings).then(({ timeInterval, invitesLi
   let iterator = 0;
   const persons = getPersons();
   const interval = window.setInterval(() => {
+  // Save invite info
     const person = persons[iterator];
     if (person) {
       sendInvitation(person);

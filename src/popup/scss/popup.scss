@@ -8,6 +8,39 @@ $light-gray: #A4A4A4;
 $border-gray: #BFBFBF;
 $white: #FFFFFF;
 $warning-red: #FF6363;
+$dark-red: #D93D3D;
+
+$large-input-style: (
+    width: 100%,
+    height: 30px,
+    text-align: left,
+    font-size: 14px,
+    margin-side: 0
+);
+
+$basic-button-style: (
+    height: 30px,
+    width: 48%,
+    bg-color: $light-gray,
+    font-size: 14px,
+    hover-color: $dark-gray,
+);
+
+$start-button-style: (
+    height: 40px,
+    width: 100%,
+    bg-color: $light-blue,
+    font-size: 18px,
+    hover-color: $dark-blue,
+);
+
+$stop-button-style: (
+    height: 40px,
+    width: 100%,
+    bg-color: $warning-red,
+    font-size: 18px,
+    hover-color: $dark-red,
+);
 
 @mixin input-style($width: 32px, $height: 25px, $text-align: center, $font-size: 12px, $margin-side: 5px) {
   width: $width;
@@ -34,7 +67,7 @@ $warning-red: #FF6363;
   }
 }
 
-@mixin button-style($height: 30px, $width: 48%, $bg-color: $light-gray, $font-size: 14px, $hover-color: $dark-gray) {
+@mixin button-style($height, $width, $bg-color, $font-size, $hover-color) {
   height: $height;
   width: $width;
   margin: 10px 0;
@@ -103,11 +136,19 @@ p {
 }
 
 button {
-  @include button-style;
+  @include button-style($basic-button-style...);
+}
+
+.invitesMax {
+  @include input-style($width: 46px);
+}
+
+.invitesTime {
+  @include input-style($width: 35px);
 }
 
 .largeInput {
-  @include input-style($width: 100%, $height: 30px, $text-align: left, $font-size: 14px, $margin-side: 0);
+  @include input-style($large-input-style...);
 }
 
 .header {
@@ -120,7 +161,7 @@ button {
   }
 }
 
-.wrapper {
+.invitesWrapper {
   display: flex;
   justify-content: center;
 
@@ -204,14 +245,6 @@ button {
   font-weight: bold;
 }
 
-.invitesMax {
-  @include input-style($width: 46px);
-}
-
-.invitesTime {
-  @include input-style($width: 35px);
-}
-
 .warningMessage {
   display: flex;
   align-items: center;
@@ -236,9 +269,13 @@ button {
   justify-content: space-between;
 }
 
-.stopButton,
 .startButton {
-  @include button-style($height: 40px, $width: 100%, $bg-color: $light-blue, $font-size: 18px, $hover-color: $dark-blue);
+  @include button-style($start-button-style...);
+  margin-top: 0;
+}
+
+.stopButton {
+  @include button-style($stop-button-style...);
   margin-top: 0;
 }
 

@@ -9,7 +9,7 @@ import { getInvites, setCurrentTabId, getCurrentTabId } from './../../common/uti
 import { fillSettings } from './settings';
 
 const { onMessage } = chrome.runtime;
-const { connect, get, remove } = chrome.tabs;
+const { connect, get, create, remove } = chrome.tabs;
 
 const warningMessage = document.getElementById('js-warning');
 const stopButton = document.getElementById('js-stop-button');
@@ -46,10 +46,14 @@ const changeState = (action) => {
 };
 
 const startInviting = () =>
-  chrome.tabs.create({ url: SEARCH_URL, active: false }, ({ id }) => {
+  create({ url: SEARCH_URL, active: false }, ({ id }) => {
+    // console.log('WINDOW: ', searchWindow);
     changeState('start');
-    setCurrentTabId(id);
-    window.setTimeout(() => setPortConnection(id), 3000);
+    // const tabId = searchWindow.tabs[0].id;
+    console.log('ID: ', id);
+    setCurrentTabId(id).then(() =>
+      window.setTimeout(() => setPortConnection(id), 3000)
+    );
   });
 
 const stopInviting = () =>

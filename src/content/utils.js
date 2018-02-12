@@ -43,25 +43,57 @@ export const waitForIt = () =>
   new Promise(resolve => {
     const interval = window.setInterval(() => {
       const searchContainer = document.querySelector('.results-list');
+      console.log('SEARCH CONTAINER: ', searchContainer);
       if (searchContainer) {
-        window.scrollTo(0, document.body.scrollHeight);
-        window.setTimeout(() => window.scrollTo(0, 0), 500);
         // window.scrollBy({
-        //   top: 999999,
-        //   behavior: 'smooth'
+        //   top: 9999999,
+        //   // behavior: 'smooth'
         // });
-        window.setTimeout(() => resolve(), 2000);
+        window.setTimeout(() => {
+          const invisibleNodes = Array.from(document.querySelectorAll('.search-result__occlusion-hint'));
+          invisibleNodes.forEach((node) => {
+            console.log('NODE123: ', node);
+            searchContainer.insertBefore(node, searchContainer.firstChild)
+          });
+          let nodeIterator = 0;
+          const nodeInterval = window.setInterval(() => {
+            const node = invisibleNodes[nodeIterator];
+            if (node) {
+              console.log('NODE: ', node);
+              node.scrollIntoView({
+                block: 'end',
+                // behavior: 'smooth',
+              });
+              nodeIterator = nodeIterator + 1;
+            } else {
+              window.clearInterval(nodeInterval);
+              window.setTimeout(() => resolve(), 1000);
+            }
+          }, 100);
+          window.dispatchEvent(new Event('resize'));
+          window.dispatchEvent(new Event('scroll'));
+        }, 1500);
         window.clearInterval(interval);
       }
     }, 500);
   });
 
 
-export const getPersons = () => Array.from(document.querySelectorAll('.search-result--person'))
+export const getPersons = () =>
+  Array.from(document.querySelectorAll('.search-result--person'))
   .filter(person => person.querySelector('.search-result__actions--primary:not(:disabled)'));
 
+// export const getNextPerson = (currentNumber) => {
+//   const person = document.querySelector(`.search-result__occluded-item:eq(${ currentNumber })`);
+//   while (person) {
+//     if (person) {
+//       person.
+//     }
+//   }
+// };
+
 export const sendInvitation = person =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     const trigger = person.querySelector('.search-result__actions--primary');
     if (trigger) {
       trigger.click();
@@ -69,10 +101,8 @@ export const sendInvitation = person =>
         const confirmButton = document.querySelector('.send-invite__actions .button-primary-large');
         if (confirmButton) {
           confirmButton.click();
-          resolve();
-        } else {
-          reject();
         }
+        resolve();
       }, 500);
     }
   });

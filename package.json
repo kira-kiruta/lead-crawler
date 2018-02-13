@@ -9,6 +9,7 @@
     "start": "webpack --watch"
   },
   "dependencies": {
+    "asyncinterval": "0.0.7",
     "normalize-scss": "^7.0.1"
   },
   "devDependencies": {

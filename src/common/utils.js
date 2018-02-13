@@ -4,6 +4,7 @@ import {
   DEFAULT_TIME_INTERVAL,
 } from './const';
 
+const { remove } = chrome.tabs;
 const { local } = chrome.storage;
 
 export const setCurrentTabId = (id) =>
@@ -23,25 +24,35 @@ export const getSettings = () =>
   );
 
 export const getInvites = () =>
-  new Promise(resolve => local.get('invites', ({ invites }) => {
-    if (!invites) {
-      resolve([]);
-      return;
-    }
+  new Promise(resolve => local.get(['invites', 'currentSessionInvites'], ({ invites, currentSessionInvites }) => {
+    const data = invites ? {
+      invites: filterInvites(invites),
+      currentSessionInvites,
+    } : {
+      invites: [],
+      currentSessionInvites,
+    };
 
-    const lastInvites = filterInvites(invites);
-    resolve(lastInvites);
+    resolve(data);
   }));
 
 export const saveInvite = () =>
   new Promise(resolve =>
-    getInvites().then((invites) => {
+    getInvites().then(({ invites, currentSessionInvites }) => {
       const updatedInvites = filterInvites(invites);
       const newInvite = { timestamp: Date.now() };
       updatedInvites.push(newInvite);
-      local.set({ invites: updatedInvites }, () => resolve());
+      local.set({
+        invites: updatedInvites,
+        currentSessionInvites: currentSessionInvites + 1,
+      }, () => resolve());
     })
   );
 
+export const clearCurrentSession = () =>
+  new Promise(resolve => local.set({ currentSessionInvites: 0 }, resolve));
 
-const filterInvites = (invites) => invites.filter(({ timestamp }) => (Date.now() - timestamp) < DAY_MS);
+export const closeCurrentSession = () =>
+  new Promise(resolve => getCurrentTabId().then(tabId => remove(tabId, resolve)));
+
+const filterInvites = invites => invites.filter(({ timestamp }) => (Date.now() - timestamp) < DAY_MS);

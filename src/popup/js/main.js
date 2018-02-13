@@ -5,11 +5,18 @@ import {
   MESSAGE_NOT_LOGGED_IN,
   MESSAGE_UPDATE_INVITE_COUNTER,
 } from './../../common/const';
-import { getInvites, setCurrentTabId, getCurrentTabId } from './../../common/utils';
+import {
+  getInvites,
+  setCurrentTabId,
+  getCurrentTabId,
+  clearCurrentSession,
+  closeCurrentSession,
+} from './../../common/utils';
 import { fillSettings } from './settings';
 
 const { onMessage } = chrome.runtime;
-const { connect, get, create, remove } = chrome.tabs;
+const { connect, get } = chrome.tabs;
+const { create, update } = chrome.windows;
 
 const warningMessage = document.getElementById('js-warning');
 const stopButton = document.getElementById('js-stop-button');
@@ -46,20 +53,22 @@ const changeState = (action) => {
 };
 
 const startInviting = () =>
-  create({ url: SEARCH_URL, active: false }, ({ id }) => {
-    // console.log('WINDOW: ', searchWindow);
-    changeState('start');
-    // const tabId = searchWindow.tabs[0].id;
-    console.log('ID: ', id);
-    setCurrentTabId(id).then(() =>
-      window.setTimeout(() => setPortConnection(id), 3000)
-    );
-  });
+  clearCurrentSession().then(() =>
+    create({ url: SEARCH_URL, focused: false }, ({ id, tabs }) => {
+      update(id, { focused: false });
+      changeState('start');
+      const tabId = tabs[0].id;
+      setCurrentTabId(tabId).then(() =>
+        window.setTimeout(() => setPortConnection(tabId), 3000)
+      );
+    })
+  );
 
 const stopInviting = () =>
-  getCurrentTabId().then((currentTabId) => remove(currentTabId, () => changeState('stop')));
+  closeCurrentSession().then(() => changeState('stop'));
 
-const updateInviteCounter = () => getInvites().then(invites => totalInvitesNumber.innerHTML = invites.length);
+const updateInviteCounter = () =>
+  getInvites().then(({ invites }) => totalInvitesNumber.innerHTML = invites.length);
 
 
 fillSettings();

@@ -3,9 +3,14 @@ import {
   MESSAGE_GET_SETTINGS,
   MESSAGE_SAVE_NEW_INVITE,
   MESSAGE_CHECK_IF_CURRENT_TAB,
+  MESSAGE_CLOSE_CURRENT_SESSION,
 } from './../common/const';
-import { isCurrentTab } from './utils';
-import { getSettings, saveInvite } from './../common/utils';
+import {
+  getSettings,
+  saveInvite,
+  getCurrentTabId,
+  closeCurrentSession,
+} from './../common/utils';
 
 const { onConnect, onMessage } = chrome.runtime;
 
@@ -21,6 +26,10 @@ onConnect.addListener((port) => {
         saveInvite();
         break;
       }
+      case MESSAGE_CLOSE_CURRENT_SESSION: {
+        closeCurrentSession();
+        break;
+      }
       default: {
         break
       }
@@ -31,7 +40,9 @@ onConnect.addListener((port) => {
 onMessage.addListener((request, sender, sendResponse) => {
   switch(request.message) {
     case MESSAGE_CHECK_IF_CURRENT_TAB: {
-      isCurrentTab(sender.tab.id).then(isCurrentTab => sendResponse({ isCurrentTab }));
+      getCurrentTabId().then(currentTabId =>
+        sendResponse({ isCurrentTab: currentTabId === sender.tab.id })
+      );
       break;
     }
     case MESSAGE_GET_SETTINGS: {

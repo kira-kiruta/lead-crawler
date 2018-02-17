@@ -2,6 +2,8 @@ import {
   DAY_MS,
   DEFAULT_INVITES_LIMIT,
   DEFAULT_TIME_INTERVAL,
+  SECOND_CIRCLE_CONNECTIONS_TYPE,
+  THIRD_CIRCLE_CONNECTIONS_TYPE,
 } from './const';
 
 const { remove } = chrome.tabs;
@@ -15,13 +17,17 @@ export const getCurrentTabId = () =>
 
 export const getSettings = () =>
   new Promise(resolve =>
-    local.get('settings', ({ settings }) =>
-      resolve(settings || {
-        invitesLimit: DEFAULT_INVITES_LIMIT,
-        timeInterval: DEFAULT_TIME_INTERVAL,
-      })
-    )
+    local.get('settings', ({ settings }) => resolve(settings || getDefaultSettings()))
   );
+
+export const getDefaultSettings = () => ({
+  note: '',
+  search: '',
+  locations: [],
+  invitesLimit: DEFAULT_INVITES_LIMIT,
+  timeInterval: DEFAULT_TIME_INTERVAL,
+  type: [SECOND_CIRCLE_CONNECTIONS_TYPE, THIRD_CIRCLE_CONNECTIONS_TYPE],
+});
 
 export const getInvites = () =>
   new Promise(resolve => local.get(['invites', 'currentSessionInvites'], ({ invites, currentSessionInvites }) => {

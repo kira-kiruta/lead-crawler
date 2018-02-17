@@ -15,40 +15,45 @@
       <img src="img/invites.png">
       <span class="connectionsCount" id="js-invites-number">1488</span>
     </div>
-    <h3>We've found <span class="invitesCount">15</span> contacts for you.<br>Let's add them all!</h3>
+    <h3 class="hidden" id="js-found-contacts-text">
+      We've found <span class="invitesCount" id="js-found-contacts-amount">15</span> contacts for you.<br>Let's add them all!
+    </h3>
   </div>
   <hr>
   <div class="settingsWrapper">
     <h2>Invitation settings</h2>
     <div>
       <label>
-        Invites limit:<input type="number" value="1000" min="1" max="99999" id="js-invites-limit" class="invitesMax">
+        Invites limit:<input type="number" value="1000" min="1" max="99999" id="js-invites-limit-field" class="invitesMax">
       </label>
       <label>
-        Time interval:<input type="number" value="5" min="1" max="999" id="js-invites-interval" class="invitesTime">s
+        Time interval:<input type="number" value="5" min="1" max="999" id="js-invites-interval-field" class="invitesTime">s
       </label>
     </div>
     <div class="connectionCircles">
       <p>Connections:</p>
       <label>
-        <input type="checkbox" class="secondCircleCheckbox" checked>
+        <input type="checkbox" class="secondCircleCheckbox js-type-checkbox" data-type="S" checked>
         <div class="secondCircle">2</div>
       </label>
       <label>
-        <input type="checkbox" class="thirdCircleCheckbox" checked>
+        <input type="checkbox" class="thirdCircleCheckbox js-type-checkbox" data-type="O" checked>
         <div class="thirdCircle">3+</div>
       </label>
     </div>
-    <input class="largeInput" placeholder="Location">
-    <input class="largeInput" placeholder="Search in title">
+    <select id="js-locations-field" multiple></select>
+    <input class="largeInput" placeholder="Search query" id="js-search-field">
     <span>for instance: HR, Developer, Analyst</span>
+    <div>
+      <textarea placeholder="Add a note" id="js-note-field" maxlength="250"></textarea>
+    </div>
   </div>
   <div class="buttonWrapper">
     <button id="js-save-settings">Save settings</button>
     <button id="js-reset-settings">Reset settings</button>
   </div>
   <button class="startButton" id="js-start-button">START</button>
-  <button class="stopButton" id="js-stop-button">STOP</button>
+  <button class="stopButton hidden" id="js-stop-button">STOP</button>
   <div class="warningMessage hidden" id="js-warning">
     <img src="img/warning.svg">
     <span>Make sure you're logged in to LinkedIn.</span>

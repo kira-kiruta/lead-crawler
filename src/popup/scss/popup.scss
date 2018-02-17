@@ -1,4 +1,6 @@
 @import "~normalize-scss/sass/normalize/_import-now.scss";
+//@import "~choices.js/assets/styles/scss/base.scss";
+@import "~choices.js/assets/styles/scss/choices.scss";
 
 $linkedin-color: #006699;
 $dark-blue: #005E93;
@@ -11,35 +13,35 @@ $warning-red: #FF6363;
 $dark-red: #D93D3D;
 
 $large-input-style: (
-    width: 100%,
-    height: 30px,
-    text-align: left,
-    font-size: 14px,
-    margin-side: 0
+  height: 30px,
+  width: 100%,
+  text-align: left,
+  font-size: 14px,
+  margin-side: 0
 );
 
 $basic-button-style: (
-    height: 30px,
-    width: 48%,
-    bg-color: $light-gray,
-    font-size: 14px,
-    hover-color: $dark-gray,
+  height: 30px,
+  width: 48%,
+  bg-color: $light-gray,
+  font-size: 14px,
+  hover-color: $dark-gray,
 );
 
 $start-button-style: (
-    height: 40px,
-    width: 100%,
-    bg-color: $light-blue,
-    font-size: 18px,
-    hover-color: $dark-blue,
+  height: 40px,
+  width: 100%,
+  bg-color: $light-blue,
+  font-size: 18px,
+  hover-color: $dark-blue,
 );
 
 $stop-button-style: (
-    height: 40px,
-    width: 100%,
-    bg-color: $warning-red,
-    font-size: 18px,
-    hover-color: $dark-red,
+  height: 40px,
+  width: 100%,
+  bg-color: $warning-red,
+  font-size: 18px,
+  hover-color: $dark-red,
 );
 
 @mixin input-style($width: 32px, $height: 25px, $text-align: center, $font-size: 12px, $margin-side: 5px) {

@@ -15,7 +15,9 @@ import {
   saveNewInvite,
   updateInviteCounter,
   closeCurrentSession,
+  sendFoundContactsAmount,
 } from './utils';
+import {MESSAGE_REQUEST_FOUND_CONTACTS_AMOUNT} from "../common/const";
 
 let port = null;
 let popupPort = null;
@@ -29,11 +31,10 @@ const createPort = () => {
   port.onMessage.addListener((msg) => {});
 };
 
-const startInviting = ({ timeInterval, invitesLimit }) => {
+const startInviting = ({ timeInterval, invitesLimit, location, search, note }) => {
   let iterator = 0;
 
-  let persons = getPersons();
-  console.log('PERSONS: ', persons);
+  let persons = getPersons({ search });
   asyncInterval((next) => {
     if (currentInvitesNumber >= invitesLimit) {
       closeCurrentSession(port);
@@ -42,11 +43,9 @@ const startInviting = ({ timeInterval, invitesLimit }) => {
 
     const person = persons[iterator];
     if (person) {
-      sendInvitation(person).then(() => {
+      sendInvitation({ person, note }).then(() => {
         saveNewInvite(port);
-        if (popupPort) {
-          updateInviteCounter(popupPort);
-        }
+        updateInviteCounter(popupPort);
         next();
       });
       iterator = iterator + 1;
@@ -55,8 +54,7 @@ const startInviting = ({ timeInterval, invitesLimit }) => {
       iterator = 0;
       openNextPage();
       waitForIt().then(() => {
-        persons = getPersons();
-        console.log('NEW PERSONS: ', persons);
+        persons = getPersons({ location, search });
         next();
       });
     }
@@ -84,17 +82,32 @@ isCurrentTab()
   .then(createPort)
   .then(checkLogin)
   .then(waitForIt)
+  .then(() => sendFoundContactsAmount(popupPort))
   .then(getSettings)
   .then(startInviting)
   .catch(handleError);
 
 onConnect.addListener((port) => {
-  popupPort = port;
-  port.onDisconnect.addListener(() => popupPort = null);
-
   if (port.name !== PORT_NAME_POPUP || isError) {
     port.disconnect();
+    return;
   }
+
+  popupPort = port;
+
+  port.onMessage.addListener((request) => {
+    const { message } = request;
+
+    switch (message) {
+      case MESSAGE_REQUEST_FOUND_CONTACTS_AMOUNT: {
+        sendFoundContactsAmount(popupPort);
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  });
+
+  port.onDisconnect.addListener(() => popupPort = null);
 });
-
-

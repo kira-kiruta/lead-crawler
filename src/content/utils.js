@@ -7,6 +7,7 @@ import {
   MESSAGE_CHECK_IF_CURRENT_TAB,
   MESSAGE_UPDATE_INVITE_COUNTER,
   MESSAGE_CLOSE_CURRENT_SESSION,
+  MESSAGE_SEND_FOUND_CONTACTS_AMOUNT,
 } from './../common/const';
 
 const { sendMessage } = chrome.runtime;
@@ -61,33 +62,100 @@ export const waitForIt = () =>
     }, 200);
   });
 
-export const getPersons = () =>
+export const getPersons = ({ search }) =>
   Array.from(document.querySelectorAll('.search-result--person'))
-  .filter(person => person.querySelector('.search-result__actions--primary:not(:disabled)'));
+  .filter(person => {
+    // const isAlreadyInvited = Boolean(person.querySelector('.search-result__actions--primary:not(:disabled)'));
 
-export const sendInvitation = person =>
+    // if (isAlreadyInvited) {
+    //   return false;
+    // }
+    //
+    // if (location) {
+    //   const locationElement = document.querySelector('.search-result__info .subline-level-2');
+    //   const personLocation = locationElement ? locationElement.innerText.trim().toLowerCase() : '';
+    //
+    //   if (!personLocation) {
+    //     return false;
+    //   }
+    //
+    //   const possibleLocations = location.split(',');
+    //   const locationIndex = possibleLocations.findIndex(possibleLocation =>
+    //     possibleLocation.trim().toLowerCase().search(personLocation) > -1
+    //   );
+    //
+    //   if (locationIndex === -1) {
+    //     return false;
+    //   }
+    // }
+    //
+    // if (title) {
+    //
+    // }
+    return person.querySelector('.search-result__actions--primary:not(:disabled)');
+  });
+
+export const sendInvitation = ({ person, note }) =>
   new Promise((resolve) => {
     const trigger = person.querySelector('.search-result__actions--primary');
     if (trigger) {
       trigger.click();
       window.setTimeout(() => {
-        const confirmButton = document.querySelector('.send-invite__actions .button-primary-large');
-        if (confirmButton) {
-          confirmButton.click();
+        if (note) {
+          const noteButton = document.querySelector('.send-invite__actions .button-secondary-large');
+          noteButton.click();
+          window.setTimeout(() => {
+            const noteArea = document.querySelector('.send-invite__custom-message');
+            const confirmButton = document.querySelector('.send-invite__actions .button-primary-large');
+            noteArea.value = note;
+            confirmButton.click();
+            resolve();
+          }, 50);
+
+        } else {
+          const confirmButton = document.querySelector('.send-invite__actions .button-primary-large');
+          if (confirmButton) {
+            confirmButton.click();
+          }
+          resolve();
         }
-        resolve();
       }, 500);
     }
   });
 
-export const saveNewInvite = (port) =>
+export const saveNewInvite = (port) => {
+  if (!port) {
+    return;
+  }
+
   port.postMessage({ message: MESSAGE_SAVE_NEW_INVITE });
+};
 
-export const updateInviteCounter = (port) =>
+export const updateInviteCounter = (port) => {
+  if (!port) {
+    return;
+  }
+
   port.postMessage({ message: MESSAGE_UPDATE_INVITE_COUNTER });
+};
 
-export const closeCurrentSession = (port) =>
+export const closeCurrentSession = (port) => {
+  if (!port) {
+    return;
+  }
+
   port.postMessage({ message: MESSAGE_CLOSE_CURRENT_SESSION });
+};
+
+export const sendFoundContactsAmount = (port) => {
+  console.log('PORT: ', port);
+  if (!port) {
+    return;
+  }
+
+  const amount = document.querySelector('.search-results__total').innerText.replace(/[^0-9,]*/g, '');
+  port.postMessage({ message: MESSAGE_SEND_FOUND_CONTACTS_AMOUNT, data: { amount } });
+};
 
 export const openNextPage = () => {
   const nextPageTrigger = document.querySelector('.next-text');

@@ -9,6 +9,7 @@ import {
   MESSAGE_CLOSE_CURRENT_SESSION,
   MESSAGE_SEND_FOUND_CONTACTS_AMOUNT,
 } from './../common/const';
+import asyncInterval from 'asyncinterval';
 
 const { sendMessage } = chrome.runtime;
 
@@ -46,7 +47,6 @@ export const waitForIt = () =>
       const interval = window.setInterval(() => {
         const loader = document.querySelector('.search-is-loading');
         const searchContainer = document.querySelector('.results-list');
-        console.log('SEARCH CONTAINER: ', searchContainer);
         if (searchContainer && !loader) {
           window.scrollTo(0, 0);
           window.setTimeout(() => {
@@ -62,37 +62,27 @@ export const waitForIt = () =>
     }, 200);
   });
 
-export const getPersons = ({ search }) =>
-  Array.from(document.querySelectorAll('.search-result--person'))
-  .filter(person => {
-    // const isAlreadyInvited = Boolean(person.querySelector('.search-result__actions--primary:not(:disabled)'));
+export const getPersons = (isNextPage) =>
+  new Promise((resolve) => {
+    if (isNextPage) {
+      openNextPage();
+    }
 
-    // if (isAlreadyInvited) {
-    //   return false;
-    // }
-    //
-    // if (location) {
-    //   const locationElement = document.querySelector('.search-result__info .subline-level-2');
-    //   const personLocation = locationElement ? locationElement.innerText.trim().toLowerCase() : '';
-    //
-    //   if (!personLocation) {
-    //     return false;
-    //   }
-    //
-    //   const possibleLocations = location.split(',');
-    //   const locationIndex = possibleLocations.findIndex(possibleLocation =>
-    //     possibleLocation.trim().toLowerCase().search(personLocation) > -1
-    //   );
-    //
-    //   if (locationIndex === -1) {
-    //     return false;
-    //   }
-    // }
-    //
-    // if (title) {
-    //
-    // }
-    return person.querySelector('.search-result__actions--primary:not(:disabled)');
+    waitForIt().then(() => {
+      const interval = asyncInterval((next, clear) => {
+        let persons = Array.from(document.querySelectorAll('.search-result--person'))
+          .filter(person => person.querySelector('.search-result__actions--primary:not(:disabled)'));
+
+        if (persons.length) {
+          console.log('PERSONS: ', persons);
+          resolve(persons);
+          interval.clear();
+        } else {
+          openNextPage();
+          waitForIt().then(next);
+        }
+      }, 5);
+    });
   });
 
 export const sendInvitation = ({ person, note }) =>
@@ -131,12 +121,12 @@ export const saveNewInvite = (port) => {
   port.postMessage({ message: MESSAGE_SAVE_NEW_INVITE });
 };
 
-export const updateInviteCounter = (port) => {
+export const updateInviteCounter = (port, currentInvitesNumber) => {
   if (!port) {
     return;
   }
 
-  port.postMessage({ message: MESSAGE_UPDATE_INVITE_COUNTER });
+  port.postMessage({ message: MESSAGE_UPDATE_INVITE_COUNTER, data: { currentInvitesNumber } });
 };
 
 export const closeCurrentSession = (port) => {

@@ -26,6 +26,8 @@ const startButton = document.getElementById('js-start-button');
 const totalInvitesNumber = document.getElementById('js-invites-number');
 const foundContactsText = document.getElementById('js-found-contacts-text');
 const foundContactsAmount = document.getElementById('js-found-contacts-amount');
+const requiredContactsAmount = document.getElementById('js-required-invites-amount');
+const currentSessionInvitesAmount = document.getElementById('js-current-session-invites-amount');
 
 const setPortConnection = (tabId) => {
   const port = connect(tabId, { name: PORT_NAME_POPUP });
@@ -35,7 +37,7 @@ const setPortConnection = (tabId) => {
 
     switch (message) {
       case MESSAGE_UPDATE_INVITE_COUNTER: {
-        updateInviteCounter();
+        updateInviteCounter(data.currentInvitesNumber);
         break;
       }
       case MESSAGE_SEND_FOUND_CONTACTS_AMOUNT: {
@@ -56,6 +58,7 @@ const setPortConnection = (tabId) => {
 
 const showFoundMessageAmount = (amount) => {
   foundContactsAmount.innerHTML = amount;
+  requiredContactsAmount.innerText = settingsController.getSettings().invitesLimit;
   foundContactsText.classList.remove('hidden');
 };
 
@@ -93,8 +96,11 @@ const startInviting = () =>
 const stopInviting = () =>
   closeCurrentSession().then(() => changeState('stop'));
 
-const updateInviteCounter = () =>
-  getInvites().then(({ invites }) => totalInvitesNumber.innerHTML = invites.length);
+const updateInviteCounter = (currentInvitesNumber) =>
+  getInvites().then(({ invites }) => {
+    totalInvitesNumber.innerHTML = invites.length;
+    currentSessionInvitesAmount.innerHTML = currentInvitesNumber;
+  });
 
 const connectToCurrentTab = (currentTabId) => {
   if (currentTabId) {

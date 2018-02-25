@@ -80,7 +80,10 @@
     border: 0;
     border-radius: 0;
     outline: none;
-    font-size: 14px;
+    font: {
+      family: "Segoe UI";
+      size: 14px;
+    }
     vertical-align: -webkit-baseline-middle;
     background-color: #f9f9f9;
 

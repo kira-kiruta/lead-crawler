@@ -10,14 +10,11 @@
       <img src="img/linkedin-logo.png">
       <h1>Lead Crawler</h1>
     </div>
-    <h3>Invites sent in 24 hours:</h3>
+    <h3>Invites sent in last 24 hours:</h3>
     <div class="invitesWrapper">
       <img src="img/invites.png">
       <span class="connectionsCount" id="js-invites-number">1488</span>
     </div>
-    <h3 class="hidden" id="js-found-contacts-text">
-      We've found <span class="invitesCount" id="js-found-contacts-amount">15</span> contacts for you.<br>Let's add them all!
-    </h3>
   </div>
   <hr>
   <div class="settingsWrapper">
@@ -54,6 +51,16 @@
   </div>
   <button class="button startButton" id="js-start-button">START</button>
   <button class="button stopButton hidden" id="js-stop-button">STOP</button>
+  <h3 class="hidden" id="js-found-contacts-text">
+    <span>We've found </span>
+    <span class="invitesCount" id="js-found-contacts-amount"></span>
+    <span>contacts for you.</span>
+    <br>
+    <span>Invited: </span>
+    <span class="invitesCount" id="js-current-session-invites-amount"></span>
+    <span>/</span>
+    <span class="invitesCount" id="js-required-invites-amount"></span>
+  </h3>
   <div class="warningMessage hidden" id="js-warning">
     <img src="img/warning.svg">
     <span>Make sure you're logged in to LinkedIn.</span>

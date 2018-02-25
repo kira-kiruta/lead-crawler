@@ -3,6 +3,7 @@ import {
   PORT_NAME_POPUP,
   PORT_NAME_BACKGROUND,
   ERROR_NOT_LOGGED_IN,
+  MESSAGE_REQUEST_FOUND_CONTACTS_AMOUNT,
 } from './../common/const';
 import {
   isCurrentTab,
@@ -11,17 +12,17 @@ import {
   waitForIt,
   getPersons,
   sendInvitation,
-  openNextPage,
   saveNewInvite,
   updateInviteCounter,
   closeCurrentSession,
   sendFoundContactsAmount,
 } from './utils';
-import {MESSAGE_REQUEST_FOUND_CONTACTS_AMOUNT} from "../common/const";
 
 let port = null;
 let popupPort = null;
 let isError = false;
+let settings = {};
+let iterator = 0;
 let currentInvitesNumber = 0;
 
 const { connect, onConnect } = chrome.runtime;
@@ -31,34 +32,48 @@ const createPort = () => {
   port.onMessage.addListener((msg) => {});
 };
 
-const startInviting = ({ timeInterval, invitesLimit, location, search, note }) => {
-  let iterator = 0;
-
-  let persons = getPersons({ search });
-  asyncInterval((next) => {
-    if (currentInvitesNumber >= invitesLimit) {
-      closeCurrentSession(port);
+const handleSingleInvitation = (person, note) =>
+  new Promise((resolve) => {
+    if (!person) {
+      resolve();
       return;
     }
 
-    const person = persons[iterator];
-    if (person) {
-      sendInvitation({ person, note }).then(() => {
-        saveNewInvite(port);
-        updateInviteCounter(popupPort);
-        next();
-      });
+    sendInvitation({ person }).then(() => {
+      saveNewInvite(port);
       iterator = iterator + 1;
       currentInvitesNumber = currentInvitesNumber + 1;
-    } else {
-      iterator = 0;
-      openNextPage();
-      waitForIt().then(() => {
-        persons = getPersons({ location, search });
-        next();
-      });
-    }
-  }, timeInterval * 1000);
+      updateInviteCounter(popupPort, currentInvitesNumber);
+      resolve();
+    });
+  });
+
+const startInviting = (persons) => {
+  const { timeInterval, invitesLimit, note } = settings;
+  let person = persons[iterator];
+
+  handleSingleInvitation(person).then(() => {
+    const interval = asyncInterval((next) => {
+      if (currentInvitesNumber >= invitesLimit) {
+        interval.clear();
+        closeCurrentSession(port);
+        return;
+      }
+
+      let person = persons[iterator];
+
+      if (person) {
+        handleSingleInvitation(person).then(next);
+      } else {
+        iterator = 0;
+        getPersons(true).then(response => {
+          persons = response;
+          person = persons[iterator];
+          handleSingleInvitation(person).then(next);
+        });
+      }
+    }, timeInterval * 1000);
+  });
 };
 
 const handleError = (error) => {
@@ -83,7 +98,8 @@ isCurrentTab()
   .then(checkLogin)
   .then(waitForIt)
   .then(() => sendFoundContactsAmount(popupPort))
-  .then(getSettings)
+  .then(() => getSettings().then((response) => settings = response))
+  .then(getPersons)
   .then(startInviting)
   .catch(handleError);
 

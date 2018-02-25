@@ -15,7 +15,7 @@ $warning-red: #FF6363;
 $dark-red: #D93D3D;
 
 $large-input-style: (
-  height: 30px,
+  height: 44px,
   width: 100%,
   text-align: left,
   font-size: 14px,
@@ -221,6 +221,7 @@ p {
   background-color: $white;
   border: 1px solid $dark-blue;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .secondCircleCheckbox:checked + .secondCircle {
@@ -242,6 +243,7 @@ p {
   background-color: $white;
   border: 1px solid $light-blue;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .thirdCircleCheckbox:checked + .thirdCircle {

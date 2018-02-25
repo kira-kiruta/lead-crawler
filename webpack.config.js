@@ -9,7 +9,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'extension/dist')
   },
   devtool: 'eval-source-map',
   module: {
@@ -48,7 +48,7 @@ module.exports = {
         })
       },
       {
-        test: /\.(ttf)$/,
+        test: /\.(ttf|svg)$/,
         use: {
           loader: 'url-loader',
           options: {
@@ -57,10 +57,10 @@ module.exports = {
           }
         }
       },
-      {
-        test: /\.svg$/,
-        loader: 'file-loader'
-      },
+      // {
+      //   test: /\.svg$/,
+      //   loader: 'file-loader'
+      // },
     ]
   },
   plugins: [

@@ -21,8 +21,8 @@ export default class SettingsController {
       this.fillSettingFields();
     });
 
-    document.getElementById('js-save-settings').addEventListener('click', this.saveSettings);
-    document.getElementById('js-reset-settings').addEventListener('click', this.resetSettings);
+    document.getElementById('js-save-settings').addEventListener('click', this.saveSettings.bind(this));
+    document.getElementById('js-reset-settings').addEventListener('click', this.resetSettings.bind(this));
   }
 
   getSettings() {
@@ -65,6 +65,7 @@ export default class SettingsController {
       const defaultSettings = getDefaultSettings();
       this.settings = defaultSettings;
       this.fillSettingFields();
+      this.locationsController.resetLocations();
       local.set({ settings: defaultSettings }, resolve);
     });
   }

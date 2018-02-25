@@ -26,6 +26,8 @@ export default class LocationsController {
         button: 'Choices__Button',
       },
     });
+
+    window.selector = this.selector;
   }
 
   getLocations() {
@@ -34,6 +36,10 @@ export default class LocationsController {
 
   setLocations(locations) {
     this.selector.setValue(locations);
+  }
+
+  resetLocations() {
+    this.selector.removeActiveItems();
   }
 
   structurizeData(locations) {

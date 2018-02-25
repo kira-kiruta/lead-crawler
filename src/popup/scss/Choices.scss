@@ -8,13 +8,14 @@
     .Choices__Inner,
     .choices__list--dropdown {
       border-color: #006699;
-      // box-shadow: 0 0 0 1px #006699;
+      box-shadow: 0 0 0 1px #006699;
     }
   }
 
   .Choices__Inner {
     display: inline-block;
     width: 100%;
+    max-height: 115px;
     min-height: 44px;
     padding: 7.5px 7.5px 3.75px;
     border: 1px solid #BFBFBF;
@@ -30,8 +31,9 @@
     }
   }
 
+  // This is an extended class from Choices library, don't change name
   .choices__list--dropdown {
-    height: 170px;
+    max-height: 170px;
     box-sizing: border-box;
     border-bottom-right-radius: 2px;
     border-bottom-left-radius: 2px;
@@ -40,26 +42,9 @@
     &:hover {
       border-color: #737373;
     }
-    //z-index: 1;
-    //position: absolute;
-    //width: 100%;
-    //background-color: #FFFFFF;
-    //border: 1px solid #DDDDDD;
-    //top: 100%;
-    //margin-top: -1px;
-    //border-bottom-left-radius: 2.5px;
-    //border-bottom-right-radius: 2.5px;
-    //overflow: hidden;
-    //word-break: break-all;
-    //max-height: 150px;
 
     .choices__list {
-      height: 170px;
-      //position: relative;
-      //max-height: 150px;
-      //overflow: auto;
-      //overflow-scrolling: touch;
-      //will-change: scroll-position;
+      max-height: 170px;
 
       .choices__item:hover {
         background-color: #e6e9ec;
@@ -69,12 +54,15 @@
   }
 
   .Choices__List--Multiply {
+    max-height: 80px;
+    overflow-y: auto;
+
     .Choices__Item--Selectable {
       display: inline-block;
       margin-right: 5px;
       margin-bottom: 8px;
       padding: 6px 10px;
-      border-radius: 32px;
+      border-radius: 8px;
       line-height: 20px;
       font-size: 14px;
       font-weight: 600;
@@ -108,7 +96,6 @@
     display: inline-block;
     margin: 0 -4px 0 8px;
     padding-left: 16px;
-    border-left: 1px solid #008fa1;
     width: 8px;
     line-height: 1;
     background : {
@@ -117,6 +104,10 @@
       repeat: no-repeat;
       position: center;
       image: url(~choices.js/assets/icons/cross-inverse.svg);
+    }
+
+    &:hover {
+      opacity: 1;
     }
   }
 }

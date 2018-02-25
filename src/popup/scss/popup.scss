@@ -4,6 +4,7 @@
 @import "./Choices.scss";
 
 $linkedin-color: #006699;
+$black: #000000;
 $dark-blue: #005E93;
 $light-blue: #0A9FDB;
 $dark-gray: #737373;
@@ -53,7 +54,7 @@ $stop-button-style: (
     family: "Segoe UI";
     size: $font-size;
   }
-  color: $dark-gray;
+  color: $black;
   background-color: $white;
   border: 1px solid $border-gray;
   border-radius: 2px;
@@ -67,6 +68,10 @@ $stop-button-style: (
   &:focus {
     border-color: $linkedin-color;
     box-shadow: 0 0 0 1px $linkedin-color;
+  }
+
+  &::placeholder {
+    color: $dark-gray;
   }
 }
 

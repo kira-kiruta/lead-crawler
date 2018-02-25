@@ -1,0 +1,122 @@
+.Choices {
+  display: flex;
+  position: relative;
+  margin-bottom: 10px;
+  font-size: 16px;
+
+  &.is-focused {
+    .Choices__Inner,
+    .choices__list--dropdown {
+      border-color: #006699;
+      // box-shadow: 0 0 0 1px #006699;
+    }
+  }
+
+  .Choices__Inner {
+    display: inline-block;
+    width: 100%;
+    min-height: 44px;
+    padding: 7.5px 7.5px 3.75px;
+    border: 1px solid #BFBFBF;
+    border-radius: 2px;
+    font-size: 14px;
+    vertical-align: top;
+    overflow: hidden;
+    box-shadow: none;
+    background-color: #f9f9f9;
+
+    &:hover {
+      border-color: #737373;
+    }
+  }
+
+  .choices__list--dropdown {
+    height: 170px;
+    box-sizing: border-box;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-color: #BFBFBF;
+
+    &:hover {
+      border-color: #737373;
+    }
+    //z-index: 1;
+    //position: absolute;
+    //width: 100%;
+    //background-color: #FFFFFF;
+    //border: 1px solid #DDDDDD;
+    //top: 100%;
+    //margin-top: -1px;
+    //border-bottom-left-radius: 2.5px;
+    //border-bottom-right-radius: 2.5px;
+    //overflow: hidden;
+    //word-break: break-all;
+    //max-height: 150px;
+
+    .choices__list {
+      height: 170px;
+      //position: relative;
+      //max-height: 150px;
+      //overflow: auto;
+      //overflow-scrolling: touch;
+      //will-change: scroll-position;
+
+      .choices__item:hover {
+        background-color: #e6e9ec;
+        color: rgba(0, 0, 0, 0.75);
+      }
+    }
+  }
+
+  .Choices__List--Multiply {
+    .Choices__Item--Selectable {
+      display: inline-block;
+      margin-right: 5px;
+      margin-bottom: 8px;
+      padding: 6px 10px;
+      border-radius: 32px;
+      line-height: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      vertical-align: baseline;
+      color: #737373;
+      // color: rgba(0, 0, 0, 0.9);
+      background-color: #e6e9ec;
+    }
+  }
+
+  .Choices__Input {
+    width: 100% !important;
+    max-width: 100%;
+    display: inline-block;
+    border: 0;
+    border-radius: 0;
+    outline: none;
+    font-size: 14px;
+    vertical-align: -webkit-baseline-middle;
+    background-color: #f9f9f9;
+
+  }
+
+  .Choices__Button {
+    opacity: 0.75;
+    text-indent: -9999px;
+    appearance: none;
+    border: 0;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    margin: 0 -4px 0 8px;
+    padding-left: 16px;
+    border-left: 1px solid #008fa1;
+    width: 8px;
+    line-height: 1;
+    background : {
+      size: 8px;
+      color: transparent;
+      repeat: no-repeat;
+      position: center;
+      image: url(~choices.js/assets/icons/cross-inverse.svg);
+    }
+  }
+}

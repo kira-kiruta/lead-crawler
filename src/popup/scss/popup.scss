@@ -1,6 +1,7 @@
 @import "~normalize-scss/sass/normalize/_import-now.scss";
 //@import "~choices.js/assets/styles/scss/base.scss";
 @import "~choices.js/assets/styles/scss/choices.scss";
+@import "./Choices.scss";
 
 $linkedin-color: #006699;
 $dark-blue: #005E93;
@@ -22,7 +23,6 @@ $large-input-style: (
 
 $basic-button-style: (
   height: 30px,
-  width: 48%,
   bg-color: $light-gray,
   font-size: 14px,
   hover-color: $dark-gray,
@@ -30,7 +30,6 @@ $basic-button-style: (
 
 $start-button-style: (
   height: 40px,
-  width: 100%,
   bg-color: $light-blue,
   font-size: 18px,
   hover-color: $dark-blue,
@@ -38,7 +37,6 @@ $start-button-style: (
 
 $stop-button-style: (
   height: 40px,
-  width: 100%,
   bg-color: $warning-red,
   font-size: 18px,
   hover-color: $dark-red,
@@ -60,18 +58,21 @@ $stop-button-style: (
   border: 1px solid $border-gray;
   border-radius: 2px;
   outline: none;
+  box-shadow: none;
+
   &:hover {
     border-color: $dark-gray;
   }
+
   &:focus {
     border-color: $linkedin-color;
     box-shadow: 0 0 0 1px $linkedin-color;
   }
 }
 
-@mixin button-style($height, $width, $bg-color, $font-size, $hover-color) {
+@mixin button-style($height, $bg-color, $font-size, $hover-color) {
+  flex: 1;
   height: $height;
-  width: $width;
   margin: 10px 0;
   font: {
     family: "Segoe UI";
@@ -85,6 +86,12 @@ $stop-button-style: (
     cursor: pointer;
     background-color: $hover-color;
   }
+}
+
+html,
+body,
+* {
+  box-sizing: border-box;
 }
 
 .container {
@@ -137,7 +144,7 @@ p {
   font-size: 16px;
 }
 
-button {
+.button {
   @include button-style($basic-button-style...);
 }
 

@@ -44,16 +44,16 @@
     <select id="js-locations-field" multiple></select>
     <input class="largeInput" placeholder="Search query" id="js-search-field">
     <span>for instance: HR, Developer, Analyst</span>
-    <div>
+    <div style="display: none;">
       <textarea placeholder="Add a note" id="js-note-field" maxlength="250"></textarea>
     </div>
   </div>
   <div class="buttonWrapper">
-    <button id="js-save-settings">Save settings</button>
-    <button id="js-reset-settings">Reset settings</button>
+    <button class="button" id="js-save-settings" style="display: none;">Save settings</button>
+    <button class="button" id="js-reset-settings">Reset settings</button>
   </div>
-  <button class="startButton" id="js-start-button">START</button>
-  <button class="stopButton hidden" id="js-stop-button">STOP</button>
+  <button class="button startButton" id="js-start-button">START</button>
+  <button class="button stopButton hidden" id="js-stop-button">STOP</button>
   <div class="warningMessage hidden" id="js-warning">
     <img src="img/warning.svg">
     <span>Make sure you're logged in to LinkedIn.</span>

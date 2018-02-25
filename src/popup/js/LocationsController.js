@@ -9,12 +9,22 @@ export default class LocationsController {
 
     this.selector = new Choices(locationsField, {
       choices,
-      searchResultLimit: 10,
       addItems: true,
       duplicateItems: false,
       removeItemButton: true,
       noResultsText: 'Not found',
+      placeholder: true,
       placeholderValue: 'Select countries',
+      // placeholderValue: 'Select countries',
+      classNames: {
+        containerOuter: 'Choices',
+        containerInner: 'Choices__Inner',
+        // listDropdown: 'Choices__List--Dropdown',
+        listItems: 'Choices__List--Multiply',
+        itemSelectable: 'Choices__Item--Selectable',
+        input: 'Choices__Input',
+        button: 'Choices__Button',
+      },
     });
   }
 

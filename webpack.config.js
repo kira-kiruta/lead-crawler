@@ -22,26 +22,33 @@ module.exports = {
             {
               loader: 'css-loader',
               options: {
-                sourceMap: true
+                sourceMap: true,
+                importLoaders: 1,
               }
             },
             {
               loader: 'resolve-url-loader',
               options: {
-                sourceMap: true
+                sourceMap: true,
               }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true,
+              },
             },
             {
               loader: 'sass-loader',
               options: {
-                sourceMap: true
+                sourceMap: true,
               }
-            }
+            },
           ]
         })
       },
       {
-        test: /\.(ttf|svg)$/,
+        test: /\.(ttf)$/,
         use: {
           loader: 'url-loader',
           options: {
@@ -49,7 +56,11 @@ module.exports = {
             name: './fonts/[name].[ext]'
           }
         }
-      }
+      },
+      {
+        test: /\.svg$/,
+        loader: 'file-loader'
+      },
     ]
   },
   plugins: [

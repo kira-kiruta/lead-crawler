@@ -4,10 +4,18 @@
   "version": "1.0.0",
   "description": "LinkedIn Lead Crawler — The fastest way to grow your professional network.",
   "icons": {
-
+    "16": "img/icons/icon-16.png",
+    "48": "img/icons/icon-48.png",
+    "128": "img/icons/icon-128.png"
   },
   "browser_action": {
-    "default_popup": "dist/popup.html"
+    "default_popup": "dist/popup.html",
+    "default_icon": {
+      "16": "img/icons/icon-16.png",
+      "24": "img/icons/icon-24.png",
+      "32": "img/icons/icon-32.png"
+    },
+    "default_title": "LinkedIn Lead Crawler"
   },
   "background": {
     "scripts": ["dist/background.js"],

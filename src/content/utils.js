@@ -121,12 +121,12 @@ export const saveNewInvite = (port) => {
   port.postMessage({ message: MESSAGE_SAVE_NEW_INVITE });
 };
 
-export const updateInviteCounter = (port, currentInvitesNumber) => {
+export const updateInviteCounter = (port, currentSessionInvites) => {
   if (!port) {
     return;
   }
 
-  port.postMessage({ message: MESSAGE_UPDATE_INVITE_COUNTER, data: { currentInvitesNumber } });
+  port.postMessage({ message: MESSAGE_UPDATE_INVITE_COUNTER, data: { currentSessionInvites } });
 };
 
 export const closeCurrentSession = (port) => {

@@ -1,7 +1,7 @@
 {
   "name": "LinkedIn Lead Crawler",
   "short_name": "Lead Crawler",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "LinkedIn Lead Crawler — The fastest way to grow your professional network.",
   "icons": {
     "16": "img/icons/icon-16.png",

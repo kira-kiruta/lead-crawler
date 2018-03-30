@@ -48,6 +48,7 @@ export const saveInvite = () =>
       const updatedInvites = filterInvites(invites);
       const newInvite = { timestamp: Date.now() };
       updatedInvites.push(newInvite);
+      console.log('CURRENT: ', currentSessionInvites);
       local.set({
         invites: updatedInvites,
         currentSessionInvites: currentSessionInvites + 1,

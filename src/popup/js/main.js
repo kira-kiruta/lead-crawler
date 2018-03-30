@@ -37,11 +37,10 @@ const setPortConnection = (tabId) => {
 
     switch (message) {
       case MESSAGE_UPDATE_INVITE_COUNTER: {
-        updateInviteCounter(data.currentInvitesNumber);
+        currentSessionInvitesAmount.innerHTML = data.currentSessionInvites;
         break;
       }
       case MESSAGE_SEND_FOUND_CONTACTS_AMOUNT: {
-        console.log('AMOUNT: ', data.amount);
         showFoundMessageAmount(data.amount);
         break;
       }
@@ -83,6 +82,7 @@ const startInviting = () =>
   settingsController.saveSettings().then(clearCurrentSession).then(() => {
     const { locations, search, types } = settingsController.getSettings();
     const url = generateSearchURL({ locations, search, types });
+    setCurrentSessionInvitesAmount(0);
     create({ url, focused: false }, ({ id, tabs }) => {
       update(id, { focused: false });
       changeState('start');
@@ -95,12 +95,6 @@ const startInviting = () =>
 
 const stopInviting = () =>
   closeCurrentSession().then(() => changeState('stop'));
-
-const updateInviteCounter = (currentInvitesNumber) =>
-  getInvites().then(({ invites }) => {
-    totalInvitesNumber.innerHTML = invites.length;
-    currentSessionInvitesAmount.innerHTML = currentInvitesNumber;
-  });
 
 const connectToCurrentTab = (currentTabId) => {
   if (currentTabId) {
@@ -115,8 +109,19 @@ const connectToCurrentTab = (currentTabId) => {
   }
 };
 
+const setCurrentSessionInvitesAmount = (currentSessionInvites) => {
+  currentSessionInvitesAmount.innerHTML = currentSessionInvites || '0';
+};
+
+const setTotalInvitesAmount = (invites) => {
+  totalInvitesNumber.innerHTML = invites;
+};
+
 const settingsController = new SettingsController();
-updateInviteCounter();
+getInvites().then(({ invites, currentSessionInvites }) => {
+  setTotalInvitesAmount(invites.length);
+  setCurrentSessionInvitesAmount(currentSessionInvites);
+});
 getCurrentTabId().then(connectToCurrentTab);
 
 

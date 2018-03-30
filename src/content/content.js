@@ -23,7 +23,7 @@ let popupPort = null;
 let isError = false;
 let settings = {};
 let iterator = 0;
-let currentInvitesNumber = 0;
+let currentSessionInvites = 0;
 
 const { connect, onConnect } = chrome.runtime;
 
@@ -42,8 +42,8 @@ const handleSingleInvitation = (person, note) =>
     sendInvitation({ person }).then(() => {
       saveNewInvite(port);
       iterator = iterator + 1;
-      currentInvitesNumber = currentInvitesNumber + 1;
-      updateInviteCounter(popupPort, currentInvitesNumber);
+      currentSessionInvites = currentSessionInvites + 1;
+      updateInviteCounter(popupPort, currentSessionInvites);
       resolve();
     });
   });
@@ -54,7 +54,7 @@ const startInviting = (persons) => {
 
   handleSingleInvitation(person).then(() => {
     const interval = asyncInterval((next) => {
-      if (currentInvitesNumber >= invitesLimit) {
+      if (currentSessionInvites >= invitesLimit) {
         interval.clear();
         closeCurrentSession(port);
         return;

@@ -50,14 +50,16 @@
   <button class="button startButton" id="js-start-button">START</button>
   <button class="button stopButton hidden" id="js-stop-button">STOP</button>
   <h3 class="hidden" id="js-found-contacts-text">
-    <span>We've found </span>
+    <span>We've found&nbsp;</span>
     <span class="invitesCount" id="js-found-contacts-amount"></span>
-    <span>contacts for you.</span>
+    <span>&nbsp;contacts.</span>
     <br>
-    <span>Invited: </span>
-    <span class="invitesCount" id="js-current-session-invites-amount"></span>
-    <span>/</span>
-    <span class="invitesCount" id="js-required-invites-amount"></span>
+    <div class="currentSessionInvitesAmountContainer">
+      <span>Invited:&nbsp;</span>
+      <span class="invitesCount" id="js-current-session-invites-amount"></span>
+      <span>&nbsp;/&nbsp;</span>
+      <span class="invitesCount" id="js-required-invites-amount"></span>
+    </div>
   </h3>
   <div class="warningMessage hidden" id="js-warning">
     <img src="../img/warning.svg">
